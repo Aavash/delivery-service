@@ -79,8 +79,8 @@ export class AuthService {
       const pendingRiderRequest = await this.riderProfileRequest.findOne({
         where: {
           mobile_number,
-          // mobile_number_ext,
-          // is_completely_registered: false
+          mobile_number_ext,
+          is_completely_registered: false
         }
       });
 
