@@ -38,9 +38,24 @@ export class AuthService {
   }
 
   async sendOtp(otpSendDto: OtpSendDto){
-    // todo: expire previously sent otp if any
+    // todo: expire previously sent otp if any for a mobile number
     // todo: ip and security validations
     // todo: sms throttling logic
+    // todo: otp time duration validation
+
+    const { mobile_number, mobile_number_ext } = otpSendDto;
+    const pendingRiderRequest = await this.riderProfileRequest.findOne({
+        where: {
+          mobile_number,
+          mobile_number_ext,
+          is_completely_registered: false
+        }
+      });
+
+    if (pendingRiderRequest) {
+      throw new HttpException('Rider has a pending profile approval.', HttpStatus.BAD_REQUEST)
+    }
+
     await this.otpLogsRepository.save({
       ...otpSendDto,
       token: this.generateToken(),
