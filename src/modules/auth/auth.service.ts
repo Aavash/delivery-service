@@ -3,10 +3,11 @@ import { Connection, Repository } from 'typeorm';
 import { OtpLogs } from './entities/OtpLogs.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OtpSendDto } from '../../common/dtos/otpSendDto';
-import { VerificationStatusEnum, VerificationType } from '../../common/constants/common.enum';
+import { UserTypeEnum, VerificationStatusEnum, VerificationType } from '../../common/constants/common.enum';
 import { AuthenticateMobileDto } from './dtos/authenticateMobile.dto';
 import { CustomerRepository } from '../customer/customer.repository';
-import { getUserJwtToken } from './getUserJwtToken.helper';
+import { getUserJwtToken } from '../../common/getUserJwtToken.helper';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
@@ -16,7 +17,9 @@ export class AuthService {
     private readonly connection: Connection,
 
     @InjectRepository(OtpLogs)
-    private otpLogsRepository: Repository<OtpLogs>
+    private otpLogsRepository: Repository<OtpLogs>,
+
+    private jwtService:JwtService
   ) {
     this.customerRepository = this.connection.getCustomRepository(CustomerRepository);
   }
@@ -49,14 +52,15 @@ export class AuthService {
   }
 
   async authenticateMobile(authDto: AuthenticateMobileDto){
-    const { token, mobile_number, mobile_number_ext } = authDto;
+    const { mobile_number, mobile_number_ext } = authDto;
     // todo: otp time duration validation
 
     const otpLog = await this.otpLogsRepository.findOne({
       where: {
         ...authDto,
         type: VerificationType.LOGIN,
-        status: VerificationStatusEnum.UNCLAIMED
+        status: VerificationStatusEnum.UNCLAIMED,
+        user_type: UserTypeEnum.CUSTOMER
       }
     });
 
@@ -67,7 +71,7 @@ export class AuthService {
         });
 
       if (customer){
-        const { accessToken, expires_in } = await getUserJwtToken(customer);
+        const { accessToken, expires_in } = await getUserJwtToken(customer, this.jwtService);
 
         await this.otpLogsRepository.save({
           ...otpLog,

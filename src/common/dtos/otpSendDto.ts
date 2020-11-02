@@ -1,5 +1,6 @@
-import { IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { IsIn, IsNotEmpty, IsOptional, IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { UserTypeEnum } from '../constants/common.enum';
 
 export class OtpSendDto {
 
@@ -21,5 +22,11 @@ export class OtpSendDto {
     @MaxLength(1000)
     @ApiProperty()
     device_id: string;
+
+    @IsString()
+    @IsNotEmpty()
+    @ApiProperty()
+    @IsIn(['CUSTOMER', 'RIDER'])
+    user_type: UserTypeEnum;
 
 }

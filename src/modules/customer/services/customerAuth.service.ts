@@ -4,7 +4,7 @@ import { CustomerRepository } from '../customer.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SetPasswordDto } from '../dtos/setPasswordDto';
 import { LoginPayloadDto } from '../../../common/dtos/loginPayload.dto';
-import { getUserJwtToken } from '../../auth/getUserJwtToken.helper';
+import { getUserJwtToken } from '../../../common/getUserJwtToken.helper';
 
 
 @Injectable()
@@ -39,7 +39,7 @@ export class CustomerAuthService {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    const { accessToken, expires_in } = await getUserJwtToken(customer);
+    const { accessToken, expires_in } = await getUserJwtToken(customer, this.jwtService);
 
     return { accessToken, expires_in }
   }

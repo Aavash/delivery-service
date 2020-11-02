@@ -40,3 +40,8 @@ export enum VerificationType {
   SET_PASSWORD = 'SET_PASSWORD',
   RESET_PASSWORD = 'RESET_PASSWORD'
 }
+
+export enum UserTypeEnum {
+  CUSTOMER = 'CUSTOMER',
+  RIDER = 'RIDER'
+}

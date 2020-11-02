@@ -1,6 +1,6 @@
 import { Column, Entity } from 'typeorm';
 import { CustomBaseEntity } from '../../../common/entitities/base.entity';
-import { VerificationStatusEnum, VerificationType } from '../../../common/constants/common.enum';
+import { UserTypeEnum, VerificationStatusEnum, VerificationType } from '../../../common/constants/common.enum';
 import { Exclude } from 'class-transformer';
 
 @Entity()
@@ -41,6 +41,9 @@ export class OtpLogs extends CustomBaseEntity{
 
   @Column('varchar')
   status: VerificationStatusEnum;
+
+  @Column('varchar')
+  user_type: UserTypeEnum;
 
   @Exclude({ toPlainOnly: true })
   @Column('boolean', {
