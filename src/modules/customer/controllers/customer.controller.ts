@@ -3,7 +3,7 @@ import { CustomerService } from '../services/customer.service';
 import { Crud } from '@nestjsx/crud';
 import { Customer } from '../entities/Customer.entity';
 import { ApiTags } from '@nestjs/swagger';
-import { customerCreateDto } from '../dtos/customerCreate.dto';
+import { OtpBasedRegistrationDto } from '../../../common/dtos/otpBasedRegistrationDto';
 
 @ApiTags('Customer')
 @Crud({
@@ -12,7 +12,7 @@ import { customerCreateDto } from '../dtos/customerCreate.dto';
 
   },
   dto: {
-    create: customerCreateDto
+    create: OtpBasedRegistrationDto
   },
   routes : {
     only: ['createOneBase', ]

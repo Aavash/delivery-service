@@ -9,7 +9,7 @@ import config from '../../config';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([OtpLogs, CustomerRepository]),
+    TypeOrmModule.forFeature([OtpLogs]),
     JwtModule.register({
       secret: config.secret,
       signOptions: {

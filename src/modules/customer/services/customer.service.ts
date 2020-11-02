@@ -5,8 +5,8 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CrudRequest } from '@nestjsx/crud';
 import { Repository } from 'typeorm';
 import { OtpLogs } from '../../auth/entities/OtpLogs.entity';
-import { customerCreateDto } from '../dtos/customerCreate.dto';
-import { VerificationStatusEnum, VerificationType } from '../../../common/constants/common.enum';
+import { OtpBasedRegistrationDto } from '../../../common/dtos/otpBasedRegistrationDto';
+import { UserTypeEnum, VerificationStatusEnum, VerificationType } from '../../../common/constants/common.enum';
 
 
 @Injectable()
@@ -20,7 +20,7 @@ export class CustomerService extends TypeOrmCrudService<Customer> {
     super(repo);
   }
 
-  async createOne(req: CrudRequest, dto: customerCreateDto): Promise<Customer> {
+  async createOne(req: CrudRequest, dto: OtpBasedRegistrationDto): Promise<Customer> {
     const { full_name, otpToken, email } = dto;
 
     const otpLog = await this.otpLogsRepository.findOne({
@@ -28,6 +28,7 @@ export class CustomerService extends TypeOrmCrudService<Customer> {
         idx: otpToken,
         status: VerificationStatusEnum.ACTIVE,
         type: VerificationType.LOGIN,
+        user_type: UserTypeEnum.CUSTOMER,
       }
     });
 
@@ -35,18 +36,21 @@ export class CustomerService extends TypeOrmCrudService<Customer> {
       throw new HttpException('Token could not be verified', HttpStatus.FORBIDDEN)
     } else {
 
-      await this.otpLogsRepository.save({
-        id: otpLog.id,
-        status: VerificationStatusEnum.EXPIRED,
-      })
-    }
 
-    return await this.repo.save({
+    const customer = await this.repo.save({
       full_name,
       email,
       mobile_number: otpLog.mobile_number,
       mobile_number_ext: otpLog.mobile_number_ext,
       is_completely_registered: true
     });
+
+    await this.otpLogsRepository.save({
+        id: otpLog.id,
+        status: VerificationStatusEnum.EXPIRED,
+      });
+
+    return customer
+    }
   }
 }

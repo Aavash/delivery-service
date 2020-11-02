@@ -16,13 +16,7 @@ export class Rider extends CustomBaseEntity{
   profile_request: RiderProfileRequest;
 
   @Column('varchar', { length: 150, name: 'first_name' })
-  first_name: string;
-
-  @Column('varchar', { length: 150, name: 'middle_name', nullable: true })
-  middle_name: string | null;
-
-  @Column('varchar', { length: 150, name: 'last_name' })
-  last_name: string;
+  full_name: string;
 
   @Exclude({ toPlainOnly: true })
   @Column('varchar', { length: 150, name: 'password', nullable: true })
@@ -63,6 +57,18 @@ export class Rider extends CustomBaseEntity{
   name: 'is_completely_registered',
   })
   is_completely_registered: boolean;
+
+  @Column('boolean', {
+    default: () => 'false',
+    name: 'can_deliver_fragile',
+    })
+  can_deliver_fragile: boolean;
+
+  @Column('boolean', {
+    default: () => 'false',
+    name: 'can_deliver_sensitive',
+    })
+  can_deliver_sensitive: boolean;
 
   @OneToMany(() => DeliveryRequest, request => request.customer, {
   eager: false,
