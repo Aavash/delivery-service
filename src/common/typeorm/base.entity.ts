@@ -11,6 +11,7 @@ export class CustomBaseEntity extends BaseEntity{
   id: number;
 
   @Generated('uuid')
+  @Column({ readonly: true })
   idx: string;
 
   @Exclude({ toPlainOnly: true })

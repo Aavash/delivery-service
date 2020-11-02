@@ -22,3 +22,15 @@ export enum RatingEnum {
   FOUR = 4,
   FIVE = 5
 }
+
+export enum GenderEnum {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHERS = 'OTHERS',
+}
+
+export enum VerificationStatusEnum {
+  INACTIVE = 'INACTIVE',
+  ACTIVE = 'ACTIVE',
+  EXPIRED = 'EXPIRED',
+}

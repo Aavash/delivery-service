@@ -15,14 +15,14 @@ async function bootstrap() {
 	});
 
   app.enableCors();
-	app.setGlobalPrefix('v1/');
+	app.setGlobalPrefix('v1');
 	app.use(helmet());
 	app.use(compression());
 	app.useGlobalFilters(new InternalServerExceptionFilter());
 	const options = new DocumentBuilder()
-	.setTitle('Orbis palid integration Apis')
+	.setTitle('Delivery Service Apis')
 	.setDescription(
-		'The Orbis palid integration Apis description built using swagger OpenApi. You can find out more about Swagger at http://swagger.io',
+		'Delivery  service Apis description built using swagger OpenApi. You can find out more about Swagger at http://swagger.io',
 	)
 	.setVersion('1.0')
 	.build();
