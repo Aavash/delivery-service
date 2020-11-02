@@ -1,4 +1,4 @@
-import config from '../config';
+import config from '../../config';
 import { JwtService } from '@nestjs/jwt';
 
 export async function getUserJwtToken(user, jwtService: JwtService) {

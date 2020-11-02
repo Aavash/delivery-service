@@ -6,7 +6,7 @@ import { OtpSendDto } from '../../common/dtos/otpSendDto';
 import { UserTypeEnum, VerificationStatusEnum, VerificationType } from '../../common/constants/common.enum';
 import { AuthenticateMobileDto } from './dtos/authenticateMobile.dto';
 import { CustomerRepository } from '../customer/customer.repository';
-import { getUserJwtToken } from '../../common/getUserJwtToken.helper';
+import { getUserJwtToken } from '../../common/jwt/getUserJwtToken.helper';
 import { JwtService } from '@nestjs/jwt';
 
 @Injectable()

@@ -11,14 +11,14 @@ export class CustomerAuthController {
     private customerAuthService: CustomerAuthService
   ) {}
 
-  @Post('/set-password/')
-  async setPassword(@Body(ValidationPipe) authCredentialsDto: SetPasswordDto): Promise<{ message }> {
-    return await this.customerAuthService.setPassword(authCredentialsDto)
-  }
-
-  @Post('/signin/')
-  signIn(@Body(ValidationPipe) loginCredentialsDto: LoginPayloadDto): Promise<{accessToken, expires_in}> {
-  return this.customerAuthService.signIn(loginCredentialsDto)
-  }
+  // @Post('/set-password/')
+  // async setPassword(@Body(ValidationPipe) authCredentialsDto: SetPasswordDto): Promise<{ message }> {
+  //   return await this.customerAuthService.setPassword(authCredentialsDto)
+  // }
+  //
+  // @Post('/signin/')
+  // signIn(@Body(ValidationPipe) loginCredentialsDto: LoginPayloadDto): Promise<{accessToken, expires_in}> {
+  // return this.customerAuthService.signIn(loginCredentialsDto)
+  // }
 
 }

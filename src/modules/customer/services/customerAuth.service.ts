@@ -4,7 +4,7 @@ import { CustomerRepository } from '../customer.repository';
 import { InjectRepository } from '@nestjs/typeorm';
 import { SetPasswordDto } from '../dtos/setPasswordDto';
 import { LoginPayloadDto } from '../../../common/dtos/loginPayload.dto';
-import { getUserJwtToken } from '../../../common/getUserJwtToken.helper';
+import { getUserJwtToken } from '../../../common/jwt/getUserJwtToken.helper';
 
 
 @Injectable()

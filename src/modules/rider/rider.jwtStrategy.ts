@@ -1,24 +1,15 @@
-import { PassportStrategy } from '@nestjs/passport';
-import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtPayload } from '../../common/constants/jwtPayload.interface';
 import { getConnection } from 'typeorm';
-import { Customer } from '../customer/entities/Customer.entity';
+import { BaseJwtStrategy } from '../../common/jwt/baseJwtStrategy';
+import { Rider } from './entities/Rider.entity';
 
 @Injectable()
-export class CustomerJwtStrategy extends PassportStrategy(Strategy){
-  constructor(
+export class CustomerJwtStrategy extends BaseJwtStrategy{
 
-  ) {
-    super({
-      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      secretOrKey: process.env.JWT_SECRET_KEY,
-    });
-  }
-
-  async validate(payload: JwtPayload): Promise<Customer> {
+  async validate(payload: JwtPayload): Promise<Rider> {
     const { idx } = payload;
-    const employerRepository = await getConnection().getRepository(Customer);
+    const employerRepository = await getConnection().getRepository(Rider);
     const user = await employerRepository.findOne({ where: { idx: idx } });
 
     if (!user) {
