@@ -3,7 +3,7 @@ import {
   Entity, OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { CustomBaseEntity } from '../../../common/typeorm/base.entity';
+import { CustomBaseEntity } from '../../../common/entitities/base.entity';
 import { ApprovalStatusEnum } from '../../../common/constants/common.enum';
 import { Rider } from './Rider.entity';
 

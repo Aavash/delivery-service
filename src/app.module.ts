@@ -5,13 +5,16 @@ import { CustomerModule } from './modules/customer/customer.module';
 import deliveryServiceDb from './config/typeorm/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot(deliveryServiceDb),
     RiderModule,
     DeliveryModule,
-    CustomerModule],
+    CustomerModule,
+    AuthModule
+  ],
 
   controllers: [],
   providers: [],

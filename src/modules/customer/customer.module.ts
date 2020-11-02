@@ -8,12 +8,11 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import config from '../../config';
 import { CustomerRepository } from './customer.repository';
-import { CustomerVerification } from './entities/CustomerVerification.entity';
 
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([CustomerRepository, CustomerVerification]),
+    TypeOrmModule.forFeature([CustomerRepository]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.register({
       secret: config.secret,

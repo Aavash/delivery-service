@@ -3,7 +3,7 @@ import {
   Entity, OneToMany, OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { CustomBaseEntity } from '../../../common/typeorm/base.entity';
+import { CustomBaseEntity } from '../../../common/entitities/base.entity';
 import { DeliveryRequest } from '../../delivery/entities/DeliveryRequest.entity';
 import { RiderProfileRequest } from './RiderProfileRequest.entity';
 

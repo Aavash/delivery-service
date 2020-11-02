@@ -2,7 +2,7 @@ import {
   Column,
   Entity, ManyToOne, OneToMany,
 } from 'typeorm';
-import { CustomBaseEntity } from '../../../common/typeorm/base.entity';
+import { CustomBaseEntity } from '../../../common/entitities/base.entity';
 import {
   ApprovalStatusEnum,
   DeliveryStatusEnum,

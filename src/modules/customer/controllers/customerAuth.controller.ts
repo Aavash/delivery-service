@@ -1,8 +1,8 @@
-import { Body, Controller, Get, Post, Req, UseGuards, ValidationPipe } from '@nestjs/common';
-import { AuthGuard } from '@nestjs/passport';
-import { AuthCredentialsDto } from '../dtos/authCredentials.dto';
+import { Body, Controller, Post, ValidationPipe } from '@nestjs/common';
+import { OtpSendDto } from '../../../common/dtos/otpSendDto';
 import { CustomerAuthService } from '../services/customerAuth.service';
 import { SetPasswordDto } from '../dtos/setPasswordDto';
+import { LoginPayloadDto } from '../../../common/dtos/loginPayload.dto';
 
 @Controller('customer-auth')
 export class CustomerAuthController {
@@ -17,8 +17,8 @@ export class CustomerAuthController {
   }
 
   @Post('/signin/')
-  signIn(@Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto): Promise<{accessToken: string}> {
-  return this.customerAuthService.signIn(authCredentialsDto)
+  signIn(@Body(ValidationPipe) loginCredentialsDto: LoginPayloadDto): Promise<{accessToken, expires_in}> {
+  return this.customerAuthService.signIn(loginCredentialsDto)
   }
 
 }

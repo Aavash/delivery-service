@@ -1,19 +1,8 @@
 import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import { OtpSendDto } from './otpSendDto';
 
-export class AuthCredentialsDto {
-
-    @IsString()
-    @MinLength(2)
-    @MaxLength(5)
-    @ApiProperty()
-    mobile_number_ext: string;
-
-    @IsString()
-    @MinLength(8)
-    @MaxLength(12)
-    @ApiProperty()
-    mobile_number: string;
+export class LoginPayloadDto extends OtpSendDto{
 
     @IsString()
     @MinLength(8)

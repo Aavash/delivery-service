@@ -36,6 +36,7 @@ export enum VerificationStatusEnum {
 }
 
 export enum VerificationType {
+  LOGIN = 'LOGIN',
   SET_PASSWORD = 'SET_PASSWORD',
   RESET_PASSWORD = 'RESET_PASSWORD'
 }

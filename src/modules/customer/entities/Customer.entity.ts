@@ -3,21 +3,16 @@ import {
   Entity, OneToMany,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
-import { CustomBaseEntity } from '../../../common/typeorm/base.entity';
+import { CustomBaseEntity } from '../../../common/entitities/base.entity';
 import { DeliveryRequest } from '../../delivery/entities/DeliveryRequest.entity';
+import { GenderEnum } from '../../../common/constants/common.enum';
 
 
 @Entity()
 export class Customer extends CustomBaseEntity{
 
   @Column('varchar', { length: 150, name: 'first_name' })
-  first_name: string;
-
-  @Column('varchar', { length: 150, name: 'middle_name', nullable: true })
-  middle_name: string | null;
-
-  @Column('varchar', { length: 150, name: 'last_name' })
-  last_name: string;
+  full_name: string;
 
   @Exclude({ toPlainOnly: true })
   @Column('varchar', { length: 150, name: 'password', nullable: true })
@@ -29,11 +24,11 @@ export class Customer extends CustomBaseEntity{
   })
   is_password_set: boolean;
 
-  @Column('varchar', { length: 150, name: 'email' })
+  @Column('varchar', { length: 150, name: 'email', nullable: true })
   email: string;
 
   @Column('varchar', { length: 150, name: 'gender', nullable: true })
-  gender: string | null;
+  gender: GenderEnum;
 
   @Column('varchar', {
     length: 150,

@@ -1,5 +1,5 @@
 import { Column, Entity, ManyToOne } from 'typeorm';
-import { CustomBaseEntity } from '../../../common/typeorm/base.entity';
+import { CustomBaseEntity } from '../../../common/entitities/base.entity';
 import { DeliveryRequest } from './DeliveryRequest.entity';
 import { DeliveryStatusEnum, ObjectSensitivityEnum } from '../../../common/constants/common.enum';
 

@@ -1,55 +1,34 @@
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import { EntityRepository, Repository } from 'typeorm';
 import { Customer } from './entities/Customer.entity';
 import * as argon from 'argon2';
-import { AuthCredentialsDto } from './dtos/authCredentials.dto';
 import { SetPasswordDto } from './dtos/setPasswordDto';
-import { CustomerVerification } from './entities/CustomerVerification.entity';
-import { VerificationStatusEnum, VerificationType } from '../../common/constants/common.enum';
+import { LoginPayloadDto } from '../../common/dtos/loginPayload.dto';
 
 
 @EntityRepository(Customer)
 export class CustomerRepository extends Repository<Customer> {
 
 	async setPassword(passwordDto: SetPasswordDto) {
-	  const { token, mobile_number, mobile_number_ext, password } = passwordDto;
+	  const { mobile_number, mobile_number_ext } = passwordDto;
 
-    const verificationRepository = getRepository(CustomerVerification);
     const customer = await this.findOne({ mobile_number, mobile_number_ext } );
-    const verificationToken = await verificationRepository.findOne({
-      where: {
-        customer: customer,
-        token: token,
-        status: VerificationStatusEnum.ACTIVE,
-        type: VerificationType.SET_PASSWORD
-      } });
 
+    if (customer){
+    const pwdHash = await argon.hash(passwordDto.password);
 
-    if (verificationToken){
-      const pwdHash = await argon.hash(passwordDto.password);
+    await this.save(
+      {
+        id: customer.id,
+        password: pwdHash,
+        is_password_set: true
+      })}
 
-      await this.save(
-        {
-          id: customer.id,
-          password: pwdHash,
-          is_password_set: true
-        },
-      );
-      await verificationRepository.save(
-        {
-          id: verificationToken.id,
-          status: VerificationStatusEnum.EXPIRED,
-        },
-      );
-
-      return customer
-    } else {
-      return null
-    }
+    return customer
 	}
 
 
-  async authenticateCustomer(authCredentialsDto: AuthCredentialsDto): Promise<Customer>{
-    const { mobile_number, mobile_number_ext, password } = authCredentialsDto;
+  async authenticateCustomer(loginCredentialsDto: LoginPayloadDto): Promise<Customer>{
+    const { mobile_number, mobile_number_ext, password } = loginCredentialsDto;
     const customer = await this.findOne({ mobile_number, mobile_number_ext });
 
     if (customer && await argon.verify(customer.password, password) && customer.is_active){
