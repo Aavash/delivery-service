@@ -2,7 +2,7 @@ import {
   Column,
   Entity, OneToMany,
 } from 'typeorm';
-import { Exclude, Transform } from 'class-transformer';
+import { Exclude } from 'class-transformer';
 import { CustomBaseEntity } from '../../../common/typeorm/base.entity';
 import { DeliveryRequest } from '../../delivery/entities/DeliveryRequest.entity';
 

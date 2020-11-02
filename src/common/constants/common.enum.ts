@@ -30,7 +30,12 @@ export enum GenderEnum {
 }
 
 export enum VerificationStatusEnum {
-  INACTIVE = 'INACTIVE',
+  UNCLAIMED = 'UNCLAIMED',
   ACTIVE = 'ACTIVE',
   EXPIRED = 'EXPIRED',
+}
+
+export enum VerificationType {
+  SET_PASSWORD = 'SET_PASSWORD',
+  RESET_PASSWORD = 'RESET_PASSWORD'
 }

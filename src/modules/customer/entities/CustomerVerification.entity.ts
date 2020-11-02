@@ -1,31 +1,28 @@
 import {
 	Column,
-	Entity,
+	Entity, JoinColumn,
 	ManyToOne,
 } from 'typeorm';
 import { CustomBaseEntity } from '../../../common/typeorm/base.entity';
-import { VerificationStatusEnum } from '../../../common/constants/common.enum';
+import { VerificationStatusEnum, VerificationType } from '../../../common/constants/common.enum';
 import { Customer } from './Customer.entity';
 
 
 @Entity()
 export class CustomerVerification extends CustomBaseEntity{
-  @ManyToOne(() => CustomerVerification)
+  @ManyToOne(() => Customer)
+	@JoinColumn({ name: 'customerId' })
   customer: Customer;
 
-	@Column('varchar', {
+  @Column('varchar', {
 		nullable: true,
 		length: 300,
 		name: 'token',
 	})
 	token: string | null;
 
-	@Column('varchar', {
-		nullable: true,
-		length: 300,
-		name: 'token',
-	})
-	type: string | null;
+  @Column('varchar')
+  type: VerificationType;
 
   @Column('varchar')
   status: VerificationStatusEnum;

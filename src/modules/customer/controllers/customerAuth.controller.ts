@@ -5,15 +5,15 @@ import { CustomerAuthService } from '../services/customerAuth.service';
 import { SetPasswordDto } from '../dtos/setPasswordDto';
 
 @Controller('customer-auth')
-export class AuthController {
+export class CustomerAuthController {
 
   constructor(
     private customerAuthService: CustomerAuthService
   ) {}
 
   @Post('/set-password/')
-  signUp(@Body(ValidationPipe) authCredentialsDto: SetPasswordDto): Promise<{ message }> {
-    return this.customerAuthService.setPassword(authCredentialsDto)
+  async setPassword(@Body(ValidationPipe) authCredentialsDto: SetPasswordDto): Promise<{ message }> {
+    return await this.customerAuthService.setPassword(authCredentialsDto)
   }
 
   @Post('/signin/')
