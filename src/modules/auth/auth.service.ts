@@ -14,23 +14,23 @@ import { CustomerRepository } from '../customer/customer.repository';
 import { getUserJwtToken } from '../../common/jwt/getUserJwtToken.helper';
 import { JwtService } from '@nestjs/jwt';
 import { Rider } from '../rider/entities/Rider.entity';
-import { RiderProfileRequest } from '../rider/entities/RiderProfileRequest.entity';
+import { AuthAPIValidators } from './auth.validator';
 
 @Injectable()
 export class AuthService {
   private readonly customerRepository: CustomerRepository;
   private readonly riderRepository: Repository<Rider>;
-  private readonly riderProfileRequest: Repository<RiderProfileRequest>;
 
   constructor(
     @InjectRepository(OtpLogs)
     private otpLogsRepository: Repository<OtpLogs>,
     private jwtService:JwtService,
-    private readonly connection: Connection
+    private readonly connection: Connection,
+    private readonly authValidator: AuthAPIValidators,
+
   ) {
     this.customerRepository = this.connection.getCustomRepository(CustomerRepository);
     this.riderRepository = this.connection.getRepository(Rider);
-    this.riderProfileRequest = this.connection.getRepository(RiderProfileRequest);
   }
 
   generateToken(){
@@ -44,18 +44,8 @@ export class AuthService {
     // todo: otp time duration validation
 
     const { mobile_number, mobile_number_ext } = otpSendDto;
-    const pendingRiderRequest = await this.riderProfileRequest.findOne({
-        where: {
-          mobile_number,
-          mobile_number_ext,
-          is_completely_registered: false
-        }
-      });
 
-    if (pendingRiderRequest) {
-      throw new HttpException('Rider has a pending profile approval.', HttpStatus.BAD_REQUEST)
-    }
-
+    await this.authValidator.validateRiderProfileRequestExists(mobile_number, mobile_number_ext);
     await this.otpLogsRepository.save({
       ...otpSendDto,
       token: this.generateToken(),
@@ -91,17 +81,7 @@ export class AuthService {
       userRepository = this.customerRepository;
     } else if (otpLog && otpLog.user_type == UserTypeEnum.RIDER){
       userRepository = this.riderRepository;
-      const pendingRiderRequest = await this.riderProfileRequest.findOne({
-        where: {
-          mobile_number,
-          mobile_number_ext,
-          is_completely_registered: false
-        }
-      });
-
-      if (pendingRiderRequest) {
-        throw new HttpException('Rider has a pending profile approval.', HttpStatus.BAD_REQUEST)
-      }
+      await this.authValidator.validateRiderProfileRequestExists(mobile_number, mobile_number_ext);
     } else {
       throw new HttpException('Invalid or expired token', HttpStatus.BAD_REQUEST)
     }

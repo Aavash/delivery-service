@@ -6,6 +6,7 @@ import { OtpLogs } from './entities/OtpLogs.entity';
 import { CustomerRepository } from '../customer/customer.repository';
 import { JwtModule } from '@nestjs/jwt';
 import config from '../../config';
+import { AuthAPIValidators } from './auth.validator';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import config from '../../config';
 
   ],
   controllers: [AuthController],
-  providers: [AuthService, CustomerRepository]
+  providers: [AuthService, CustomerRepository, AuthAPIValidators]
 })
 export class AuthModule {}
