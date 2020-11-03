@@ -64,4 +64,10 @@ export class RiderProfileRequest extends CustomBaseEntity{
   @Column('varchar', { length: 150, name: 'approval_quote' , nullable: true})
   approval_quote: string;
 
+  @Column('varchar', { length: 1000, name: 'front_image' })
+  front_image: string;
+
+  @Column('varchar', { length: 1000, name: 'back_image' })
+  back_image: string;
+
 }

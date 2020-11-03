@@ -21,11 +21,11 @@ export class CustomerService extends TypeOrmCrudService<Customer> {
   }
 
   async createOne(req: CrudRequest, dto: OtpBasedRegistrationDto): Promise<Customer> {
-    const { full_name, otpToken, email } = dto;
+    const { full_name, otp_token, email } = dto;
 
     const otpLog = await this.otpLogsRepository.findOne({
       where: {
-        idx: otpToken,
+        idx: otp_token,
         status: VerificationStatusEnum.ACTIVE,
         type: VerificationType.LOGIN,
         user_type: UserTypeEnum.CUSTOMER,

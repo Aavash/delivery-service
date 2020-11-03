@@ -15,11 +15,12 @@ const deliveryServiceDb: ConnectionOptions = {
 	logging: true,
 	migrationsTableName: 'nest_migration',
 	logger: 'advanced-console',
+	subscribers: [join(__dirname, '/../../subscriber/*{.ts,.js}')],
+	migrations: [join(__dirname, '/../../migrations/*{.ts,.js}')],
 	entities: [
 		join(__dirname, '/../../modules/**/entities/*.entity.{js,ts}'),
 		join(__dirname, '/../../entities/*.entity.{js,ts}'),
 	],
-	migrations: [join(__dirname, '/../../migrations/*{.ts,.js}')],
 	cli: {
 		migrationsDir: join(__dirname, '/../../migrations'),
 		entitiesDir: join(__dirname, '/../../modules/**/entities'),

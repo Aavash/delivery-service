@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+    #######################################
+    # Redis Service
+    #######################################
+    minio-service:
+        image: minio/minio
+        container_name: minio-service
+        hostname: minio-service
+        volumes:
+          - /data:/data
+        ports:
+          - "9001:9000"
+        networks:
+         - quick-service-net
+        environment:
+          MINIO_ACCESS_KEY: AKIAIOSFODNN7EXAMPLE
+          MINIO_SECRET_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+          MINIO_BUCKET: riderdocument
+    #    deploy:
+    #      restart_policy:
+    #        delay: 10s
+    #        max_attempts: 10
+    #        window: 60s
+    #      placement:
+    #        constraints:
+    #          - node.labels.minio1==true
+        command:  server /data
+        healthcheck:
+          test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+          interval: 30s
+          timeout: 20s
+          retries: 3
+
+networks:
+    quick-service-net:
+        name: quick-service-network
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.16.238.0/24"
+                - subnet: "2001:3984:3989::/64"

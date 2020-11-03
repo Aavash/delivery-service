@@ -8,7 +8,7 @@
 env/prod.env
 .eslintcache
 
-#src/plaid.module.ts
+#minio-client/plaid.module.ts
 
 
 # Logs

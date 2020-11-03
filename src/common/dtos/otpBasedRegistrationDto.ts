@@ -11,7 +11,7 @@ import { ApiProperty } from '@nestjs/swagger';
 export class OtpBasedRegistrationDto {
   @ApiProperty()
   @IsUUID()
-  otpToken: string;
+  otp_token: string;
 
   @ApiProperty()
   @IsString()

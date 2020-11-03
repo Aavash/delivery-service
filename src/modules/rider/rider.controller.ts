@@ -1,27 +1,25 @@
-import { Controller } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
-import { Crud } from '@nestjsx/crud';
+import { Controller, Post, UseInterceptors, UploadedFile, UploadedFiles, Body } from '@nestjs/common';
+import { FileInterceptor, FileFieldsInterceptor } from '@nestjs/platform-express'
+import { RiderProfileRequestService } from './rider.service';
 import { OtpBasedRegistrationDto } from '../../common/dtos/otpBasedRegistrationDto';
-import { Rider } from './entities/Rider.entity';
-import { RiderService } from './rider.service';
+import { BufferedFile } from '../../common/constants/file-model.image';
 
 
-@ApiTags('Rider')
-@Crud({
-  model: {
-    type: Rider
-
-  },
-  dto: {
-    create: OtpBasedRegistrationDto
-  },
-  routes : {
-    only: ['createOneBase', ]
-  }
-
-
-})
 @Controller('rider')
-export class RiderController {
-  constructor(private readonly service: RiderService) {}
+export class RiderProfileRequestController {
+  constructor(
+    private riderProfileRequestService: RiderProfileRequestService,
+  ) {}
+
+  @Post('profile-request')
+  @UseInterceptors( FileFieldsInterceptor([
+    { name: 'front_image', maxCount: 1 },
+    { name: 'back_image', maxCount: 1 },
+  ]))
+  async uploadMany(
+    @UploadedFiles() files,
+    @Body() registrationDto: OtpBasedRegistrationDto
+  ) {
+    return await this.riderProfileRequestService.profileRequest(registrationDto, files)
+  }
 }
