@@ -16,13 +16,13 @@ export class OtpBasedRegistrationDto {
   @ApiProperty()
   @IsString()
   @MinLength(3)
-  @MaxLength(100)
+  @MaxLength(50)
   full_name: string;
 
   @ApiProperty()
   @IsEmail()
-  @MinLength(4)
-  @MaxLength(100)
+  @MinLength(3)
+  @MaxLength(50)
   @IsOptional()
   email: string;
 }
