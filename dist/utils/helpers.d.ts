@@ -1,0 +1,20 @@
+export declare const isObjectEmpty: (obj: any) => boolean;
+export declare function hasNext(page: number, totalPages: number, hostAddress: string): string;
+export declare function hasPrevious(page: number, totalPages: number, hostAddress: string): string;
+export declare function paginate(pages: any, page: any, total: any, host: any, result: any): {
+    total_pages: any;
+    total_items: any;
+    next: string;
+    previous: string;
+    current_page: any;
+    items: Record<string, any>;
+};
+export declare function removeEmpty(obj: any): {};
+export declare function parseJwt(token: any): any;
+export declare function cleanData(obj: any, toRemove: Array<string>): void;
+export declare function validateUUID(idx: string): void;
+export declare function validateUUIDwithMessage(idx: string, message: string): void;
+export declare const fileName: (OldName: any) => string;
+export declare function hashString(string: any): Promise<string>;
+export declare const Axios: import("axios").AxiosInstance;
+export declare const formUrlEncoded: (x: any) => string;

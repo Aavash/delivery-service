@@ -1,0 +1,38 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.init1604455752712 = void 0;
+class init1604455752712 {
+    constructor() {
+        this.name = 'init1604455752712';
+    }
+    async up(queryRunner) {
+        await queryRunner.query(`CREATE TABLE "otp_logs" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "mobile_number_ext" character varying(150) NOT NULL, "mobile_number" character varying(150) NOT NULL, "token" character varying(10), "device_id" character varying(1000), "ip_address" character varying(100), "type" character varying NOT NULL, "status" character varying NOT NULL, "user_type" character varying NOT NULL, "is_otp_sent" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_e40afc7741f20895f967dc22d85" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "rider_profile_request" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "first_name" character varying(150) NOT NULL, "password" character varying(150), "is_password_set" boolean NOT NULL DEFAULT false, "email" character varying(150), "gender" character varying(150), "mobile_number_ext" character varying(150) NOT NULL, "mobile_number" character varying(150) NOT NULL, "date_of_birth" date, "is_active" boolean NOT NULL DEFAULT true, "is_completely_registered" boolean NOT NULL DEFAULT false, "approval_status" character varying NOT NULL, "approval_quote" character varying(150), "front_image" character varying(1000) NOT NULL, "back_image" character varying(1000) NOT NULL, CONSTRAINT "PK_38829a9898c9225d2cabbc3296c" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "rider" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "first_name" character varying(150) NOT NULL, "password" character varying(150), "is_password_set" boolean NOT NULL DEFAULT false, "email" character varying(150), "gender" character varying(150), "mobile_number_ext" character varying(150) NOT NULL, "mobile_number" character varying(150) NOT NULL, "date_of_birth" date, "is_active" boolean NOT NULL DEFAULT true, "is_completely_registered" boolean NOT NULL DEFAULT false, "can_deliver_fragile" boolean NOT NULL DEFAULT false, "can_deliver_sensitive" boolean NOT NULL DEFAULT false, "front_image" character varying(1000) NOT NULL, "back_image" character varying(1000) NOT NULL, "profileRequestId" integer, CONSTRAINT "REL_8f62e6fe96b1af6a200ba2427d" UNIQUE ("profileRequestId"), CONSTRAINT "PK_1ed6540e613592e2a470a162ef1" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "package_delivery_location_request" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "latitude" character varying(150) NOT NULL, "longitude" character varying(150) NOT NULL, "title" character varying(150) NOT NULL, "request_note" character varying(150), "is_confidential" boolean NOT NULL DEFAULT false, "object_sensitivity" character varying NOT NULL, "delivery_status" character varying NOT NULL, "deliveryRequestId" integer, CONSTRAINT "PK_3725d978f7165d9dbb0e574e624" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "delivery_rating_review" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "name" character varying(150) NOT NULL, "RATING" character varying NOT NULL, "deliveryRequestId" integer, CONSTRAINT "PK_55ff61d476726efed8dfea47ab1" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "delivery_request" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "title" character varying(150) NOT NULL, "name" character varying(150), "approval_status" character varying NOT NULL, "delivery_status" character varying NOT NULL, "customerId" integer, "assignedToId" integer, CONSTRAINT "PK_bb8d3e184ec947880f4e1103dc0" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`CREATE TABLE "customer" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "first_name" character varying(150) NOT NULL, "password" character varying(150), "is_password_set" boolean NOT NULL DEFAULT false, "email" character varying(150), "gender" character varying(150), "mobile_number_ext" character varying(150) NOT NULL, "mobile_number" character varying(150) NOT NULL, "date_of_birth" date, "is_active" boolean NOT NULL DEFAULT true, "is_completely_registered" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_a7a13f4cacb744524e44dfdad32" PRIMARY KEY ("id"))`);
+        await queryRunner.query(`ALTER TABLE "rider" ADD CONSTRAINT "FK_8f62e6fe96b1af6a200ba2427d1" FOREIGN KEY ("profileRequestId") REFERENCES "rider_profile_request"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "package_delivery_location_request" ADD CONSTRAINT "FK_451417a73433ca8a7629c856a72" FOREIGN KEY ("deliveryRequestId") REFERENCES "delivery_request"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "delivery_rating_review" ADD CONSTRAINT "FK_9c408337c577529b6e72e74f3bf" FOREIGN KEY ("deliveryRequestId") REFERENCES "delivery_request"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "delivery_request" ADD CONSTRAINT "FK_8726da74a4ec52bfbeb4947890e" FOREIGN KEY ("customerId") REFERENCES "customer"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE "delivery_request" ADD CONSTRAINT "FK_d6ad6f9f317eef68a003b35871a" FOREIGN KEY ("assignedToId") REFERENCES "rider"("id") ON DELETE NO ACTION ON UPDATE NO ACTION`);
+    }
+    async down(queryRunner) {
+        await queryRunner.query(`ALTER TABLE "delivery_request" DROP CONSTRAINT "FK_d6ad6f9f317eef68a003b35871a"`);
+        await queryRunner.query(`ALTER TABLE "delivery_request" DROP CONSTRAINT "FK_8726da74a4ec52bfbeb4947890e"`);
+        await queryRunner.query(`ALTER TABLE "delivery_rating_review" DROP CONSTRAINT "FK_9c408337c577529b6e72e74f3bf"`);
+        await queryRunner.query(`ALTER TABLE "package_delivery_location_request" DROP CONSTRAINT "FK_451417a73433ca8a7629c856a72"`);
+        await queryRunner.query(`ALTER TABLE "rider" DROP CONSTRAINT "FK_8f62e6fe96b1af6a200ba2427d1"`);
+        await queryRunner.query(`DROP TABLE "customer"`);
+        await queryRunner.query(`DROP TABLE "delivery_request"`);
+        await queryRunner.query(`DROP TABLE "delivery_rating_review"`);
+        await queryRunner.query(`DROP TABLE "package_delivery_location_request"`);
+        await queryRunner.query(`DROP TABLE "rider"`);
+        await queryRunner.query(`DROP TABLE "rider_profile_request"`);
+        await queryRunner.query(`DROP TABLE "otp_logs"`);
+    }
+}
+exports.init1604455752712 = init1604455752712;
+//# sourceMappingURL=1604455752712-init.js.map

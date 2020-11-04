@@ -1,0 +1,1 @@
+{"version":3,"file":"nest-minio.providers.js","sourceRoot":"","sources":["../../../src/modules/minio-client/nest-minio.providers.ts"],"names":[],"mappings":";;;AAEA,2CAAiD;AAEjD,SAAgB,wBAAwB,CAAC,OAAyB;IAChE,OAAO;QACL;YACE,OAAO,EAAE,8BAAkB;YAC3B,QAAQ,EAAE,OAAO;SAClB;KACF,CAAC;AACJ,CAAC;AAPD,4DAOC"}
