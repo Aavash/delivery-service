@@ -1,24 +1,24 @@
-`version: '3.5'
+version: '3.5'
 
-   services:
-     #######################################
-     # Delivery Service
-     #######################################
-     delivery-service:
-       container_name: delivery-service
-       env_file: "env/${ENV}.env"
-       build:
-         context: "."
-       image: delivery-service
-       networks:
-         - quick-service-net
-       ports:
-         - "4056:8000"
-       command: npm run start
-       volumes:
-         - .:/usr/src/app
-         - /usr/src/app/node_modules
-       restart: unless-stopped
+services:
+ #######################################
+ # Delivery Service
+ #######################################
+ delivery-service:
+   container_name: delivery-service
+   env_file: "env/${ENV}.env"
+   build:
+     context: "."
+   image: delivery-service
+   networks:
+     - quick-service-net
+   ports:
+     - "4056:8000"
+   command: npm run start
+   volumes:
+     - .:/usr/src/app
+     - /usr/src/app/node_modules
+   restart: unless-stopped
 
 networks:
     quick-service-net:

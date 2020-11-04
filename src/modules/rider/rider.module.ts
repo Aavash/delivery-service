@@ -2,11 +2,13 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RiderProfileRequest } from './entities/RiderProfileRequest.entity';
 import { OtpLogs } from '../auth/entities/OtpLogs.entity';
-import { RiderProfileRequestService } from './services/profileRequest.service';
-import { RiderProfileRequestController } from './controllers/profileRequest.controller';
+import { ProfileApprovalService } from './services/requestApproval.service';
+import { RequestApprovalController } from './controllers/requestApproval.controller';
 import { NestMinioModule } from '../minio-client';
 import config from '../../config';
 import { Rider } from './entities/Rider.entity';
+import { ProfileRequestController } from './controllers/profileRequest.controller';
+import { ProfileRequestService } from './services/profileRequest.service';
 
 @Module({
   imports: [
@@ -19,7 +21,7 @@ import { Rider } from './entities/Rider.entity';
 		}),
     TypeOrmModule.forFeature([RiderProfileRequest, OtpLogs, Rider])
   ],
-  controllers: [RiderProfileRequestController],
-  providers: [RiderProfileRequestService]
+  controllers: [RequestApprovalController, ProfileRequestController],
+  providers: [ProfileApprovalService, ProfileRequestService]
 })
 export class RiderModule {}
