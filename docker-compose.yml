@@ -26,5 +26,5 @@ networks:
       ipam:
           driver: default
           config:
-              - subnet: "172.16.238.0/24"
-              - subnet: "2001:3984:3989::/64"
+              - subnet: "192.168.0.0/24"
+              - subnet: "4001:5984:5989::/64"
