@@ -1,4 +1,4 @@
-import { Controller, Get, ValidationPipe } from '@nestjs/common';
+import { Controller } from '@nestjs/common';
 import { Crud, CrudController } from '@nestjsx/crud';
 import { RiderProfileRequest } from '../entities/RiderProfileRequest.entity';
 import { ApiTags } from '@nestjs/swagger';

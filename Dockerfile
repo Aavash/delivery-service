@@ -5,6 +5,6 @@ WORKDIR /usr/src/app
 #COPY ./.certi/ca.crt /usr/local/share/ca-certificates/
 #RUN update-ca-certificates
 COPY package.json ./
-COPY yarn.lock ./
+#COPY yarn.lock ./
 RUN yarn install --production=true
 RUN ls -la
