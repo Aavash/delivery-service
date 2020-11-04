@@ -34,7 +34,7 @@ export class AuthService {
   }
 
   generateToken(){
-    return '111111'
+    return '1234'
   }
 
   async sendOtp(otpSendDto: OtpSendDto){
