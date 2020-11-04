@@ -1,6 +1,6 @@
 import {
   Column,
-  Entity, OneToMany, OneToOne,
+  Entity, JoinColumn, OneToMany, OneToOne,
 } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { CustomBaseEntity } from '../../../common/entitities/base.entity';
@@ -13,6 +13,7 @@ export class Rider extends CustomBaseEntity{
 
   @OneToOne(() => RiderProfileRequest,
       rider_request => rider_request.rider )
+  @JoinColumn()
   profile_request: RiderProfileRequest;
 
   @Column('varchar', { length: 150, name: 'first_name' })
@@ -28,7 +29,7 @@ export class Rider extends CustomBaseEntity{
   })
   is_password_set: boolean;
 
-  @Column('varchar', { length: 150, name: 'email' })
+  @Column('varchar', { length: 150, name: 'email', nullable: true })
   email: string;
 
   @Column('varchar', { length: 150, name: 'gender', nullable: true })
@@ -74,4 +75,10 @@ export class Rider extends CustomBaseEntity{
   eager: false,
   })
   assigned_delivery_requests: DeliveryRequest[];
+
+  @Column('varchar', { length: 1000, name: 'front_image' })
+  front_image: string;
+
+  @Column('varchar', { length: 1000, name: 'back_image' })
+  back_image: string;
 }

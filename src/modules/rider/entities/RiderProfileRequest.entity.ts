@@ -28,7 +28,7 @@ export class RiderProfileRequest extends CustomBaseEntity{
   })
   is_password_set: boolean;
 
-  @Column('varchar', { length: 150, name: 'email' })
+  @Column('varchar', { length: 150, name: 'email', nullable:true })
   email: string;
 
   @Column('varchar', { length: 150, name: 'gender', nullable: true })

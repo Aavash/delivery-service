@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { RiderProfileRequest } from './entities/RiderProfileRequest.entity';
 import { OtpLogs } from '../auth/entities/OtpLogs.entity';
-import { RiderProfileRequestService } from './rider.service';
-import { RiderProfileRequestController } from './rider.controller';
+import { RiderProfileRequestService } from './services/profileRequest.service';
+import { RiderProfileRequestController } from './controllers/profileRequest.controller';
 import { NestMinioModule } from '../minio-client';
 import config from '../../config';
+import { Rider } from './entities/Rider.entity';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import config from '../../config';
 			accessKey: config.minio.MINIO_ACCESSKEY,
 			secretKey: config.minio.MINIO_SECRETKEY
 		}),
-    TypeOrmModule.forFeature([RiderProfileRequest, OtpLogs])
+    TypeOrmModule.forFeature([RiderProfileRequest, OtpLogs, Rider])
   ],
   controllers: [RiderProfileRequestController],
   providers: [RiderProfileRequestService]

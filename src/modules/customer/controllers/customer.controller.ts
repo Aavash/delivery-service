@@ -20,7 +20,7 @@ import { OtpBasedRegistrationDto } from '../../../common/dtos/otpBasedRegistrati
 
 
 })
-@Controller('customer')
+@Controller('customer/customer-register')
 export class CustomerController {
   constructor(private readonly service: CustomerService) {}
 }

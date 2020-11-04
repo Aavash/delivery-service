@@ -1,6 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { Connection, Repository } from 'typeorm';
 import { RiderProfileRequest } from '../rider/entities/RiderProfileRequest.entity';
+import { ApprovalStatusEnum } from '../../common/constants/common.enum';
 
 
 @Injectable()
@@ -19,13 +20,14 @@ export class AuthAPIValidators{
         where: {
           mobile_number,
           mobile_number_ext,
-          is_completely_registered: false
+          is_completely_registered: false,
+          approval_status: ApprovalStatusEnum.PENDING
         }
       });
 
-    // if (pendingRiderRequest) {
-    //   throw new HttpException('Rider has a pending profile approval.', HttpStatus.BAD_REQUEST)
-    // }
+    if (pendingRiderRequest) {
+      throw new HttpException('Rider has a pending profile approval.', HttpStatus.BAD_REQUEST)
+    }
 
     return true
   }
