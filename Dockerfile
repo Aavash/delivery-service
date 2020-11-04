@@ -6,5 +6,8 @@ WORKDIR /usr/src/app
 #RUN update-ca-certificates
 COPY package.json ./
 #COPY yarn.lock ./
+COPY ./dist .
 RUN yarn install --production=true
+#RUN yarn run build
+#RUN yarn run typeorm migration:run
 RUN ls -la

@@ -1,30 +1,30 @@
-version: '3.5'
+version: '3.7'
 
 services:
- #######################################
- # Delivery Service
- #######################################
- delivery-service:
-   container_name: delivery-service
-   env_file: "env/${ENV}.env"
-   build:
-     context: "."
-   image: delivery-service
-   networks:
-     - quick-service-net
-   ports:
-     - "4056:8000"
-   command: npm run start
-   volumes:
-     - .:/usr/src/app
-     - /usr/src/app/node_modules
-   restart: unless-stopped
+    #######################################
+    # Delivery Service
+    #######################################
+    delivery-service:
+        container_name: delivery-service
+        env_file: "env/${ENV}.env"
+        build:
+            context: "."
+        image: delivery-service
+        command: npm run start:prod
+        networks:
+        - quick-service-net
+        ports:
+        - "4099:8000"
+        volumes:
+            - .:/usr/src/app
+#            - ./node_modules:/usr/src/app/node_modules
+        restart: unless-stopped
 
 networks:
-    quick-service-net:
-        name: quick-service-network
-        ipam:
-            driver: default
-            config:
-                - subnet: "172.16.238.0/24"
-                - subnet: "2001:3984:3989::/64"
+  quick-service-net:
+      name: quick-service-network
+      ipam:
+          driver: default
+          config:
+              - subnet: "172.16.238.0/24"
+              - subnet: "2001:3984:3989::/64"

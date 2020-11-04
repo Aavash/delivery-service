@@ -28,5 +28,7 @@ const deliveryServiceDb: ConnectionOptions = {
 	extra: { max: 20 },
 };
 
+
+console.log(deliveryServiceDb);
 export = deliveryServiceDb;
 
