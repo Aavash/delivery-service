@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const otpSendDto_1 = require("../../common/dtos/otpSendDto");
 const auth_service_1 = require("./auth.service");
 const authenticateMobile_dto_1 = require("./dtos/authenticateMobile.dto");
+const swagger_1 = require("@nestjs/swagger");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -43,6 +44,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "authenticateMobile", null);
 AuthController = __decorate([
+    swagger_1.ApiTags('Auth'),
     common_1.Controller('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], AuthController);

@@ -27,10 +27,11 @@ export class ProfileApprovalService {
 
   async profileRequest(registrationDto: OtpBasedRegistrationDto, files): Promise<unknown> {
 
-    const { full_name, otp_token, email } = registrationDto;
+    const { full_name, otp_token, email, device_id } = registrationDto;
 
     const otpLog = await this.otpLogsRepository.findOne({
       where: {
+        device_id,
         idx: otp_token,
         status: VerificationStatusEnum.ACTIVE,
         user_type: UserTypeEnum.RIDER,
@@ -43,13 +44,17 @@ export class ProfileApprovalService {
     front_image_name = crypto.createHash('md5').update(front_image_name).digest('hex');
     back_image_name = crypto.createHash('md5').update(back_image_name).digest('hex');
 
+    if (!files.front_image[0] || !files.front_image[0]) {
+      throw new HttpException('Enter both front and back images', HttpStatus.FORBIDDEN)
+    }
+
     if (!otpLog) {
-      throw new HttpException('Token could not be verified', HttpStatus.FORBIDDEN)
+      throw new HttpException('Token and Device could not be verified', HttpStatus.FORBIDDEN)
 
     } else {
     // await this.minioClient.putObject(config.minio.MINIO_BUCKET, front_image_name, files.front_image[0].buffer);
 
-    const profileRequest = await this.riderProfileRequestRepository.save({
+    await this.riderProfileRequestRepository.save({
       full_name,
       email,
       mobile_number: otpLog.mobile_number,

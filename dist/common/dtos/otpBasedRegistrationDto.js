@@ -34,5 +34,13 @@ __decorate([
     class_validator_1.IsOptional(),
     __metadata("design:type", String)
 ], OtpBasedRegistrationDto.prototype, "email", void 0);
+__decorate([
+    class_validator_1.IsString(),
+    class_validator_1.IsNotEmpty(),
+    class_validator_1.MinLength(2),
+    class_validator_1.MaxLength(1000),
+    swagger_1.ApiProperty(),
+    __metadata("design:type", String)
+], OtpBasedRegistrationDto.prototype, "device_id", void 0);
 exports.OtpBasedRegistrationDto = OtpBasedRegistrationDto;
 //# sourceMappingURL=otpBasedRegistrationDto.js.map

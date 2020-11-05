@@ -17,14 +17,14 @@ export declare class AuthService {
         message: string;
     }>;
     authenticateMobile(authDto: AuthenticateMobileDto): Promise<{
-        accessToken: string;
+        access_token: string;
         expires_in: string;
         user_exists: boolean;
         token_id?: undefined;
     } | {
         user_exists: boolean;
         token_id: string;
-        accessToken?: undefined;
+        access_token?: undefined;
         expires_in?: undefined;
     }>;
 }

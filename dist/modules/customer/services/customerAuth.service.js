@@ -40,8 +40,8 @@ let CustomerAuthService = class CustomerAuthService {
         if (!customer) {
             throw new common_1.UnauthorizedException('Invalid credentials');
         }
-        const { accessToken, expires_in } = await getUserJwtToken_helper_1.getUserJwtToken(customer, this.jwtService);
-        return { accessToken, expires_in };
+        const { access_token, expires_in } = await getUserJwtToken_helper_1.getUserJwtToken(customer, this.jwtService);
+        return { access_token, expires_in };
     }
 };
 CustomerAuthService = __decorate([

@@ -10,11 +10,11 @@ export async function getUserJwtToken(user, jwtService: JwtService) {
       mobile_number_ext: user.mobile_number_ext,
 		};
 
-		const accessToken = jwtService.sign(payload, {
+		const access_token = jwtService.sign(payload, {
 			expiresIn: config.expiresIn,
 		});
 		// const accessToken = new JwtService();
 
 		// data sent after successful login token generation
-		return { accessToken, payload, expires_in: config.expiresIn };
+		return { access_token, payload, expires_in: config.expiresIn };
 	}

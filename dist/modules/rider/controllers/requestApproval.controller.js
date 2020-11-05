@@ -18,6 +18,7 @@ const platform_express_1 = require("@nestjs/platform-express");
 const requestApproval_service_1 = require("../services/requestApproval.service");
 const otpBasedRegistrationDto_1 = require("../../../common/dtos/otpBasedRegistrationDto");
 const riderProfileCreate_dto_1 = require("../dtos/riderProfileCreate.dto");
+const swagger_1 = require("@nestjs/swagger");
 let RequestApprovalController = class RequestApprovalController {
     constructor(riderProfileRequestService) {
         this.riderProfileRequestService = riderProfileRequestService;
@@ -50,6 +51,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], RequestApprovalController.prototype, "profileApprove", null);
 RequestApprovalController = __decorate([
+    swagger_1.ApiTags('Rider Profile creation'),
     common_1.Controller('rider'),
     __metadata("design:paramtypes", [requestApproval_service_1.ProfileApprovalService])
 ], RequestApprovalController);

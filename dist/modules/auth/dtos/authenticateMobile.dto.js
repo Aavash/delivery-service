@@ -12,29 +12,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthenticateMobileDto = void 0;
 const class_validator_1 = require("class-validator");
 const swagger_1 = require("@nestjs/swagger");
-class AuthenticateMobileDto {
+const otpSendDto_1 = require("../../../common/dtos/otpSendDto");
+class AuthenticateMobileDto extends otpSendDto_1.OtpSendDto {
 }
 __decorate([
     class_validator_1.IsString(),
     class_validator_1.IsNotEmpty(),
     class_validator_1.MinLength(4),
-    class_validator_1.MaxLength(10),
+    class_validator_1.MaxLength(4),
     swagger_1.ApiProperty(),
     __metadata("design:type", String)
 ], AuthenticateMobileDto.prototype, "token", void 0);
-__decorate([
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(3),
-    class_validator_1.MaxLength(3),
-    swagger_1.ApiProperty(),
-    __metadata("design:type", String)
-], AuthenticateMobileDto.prototype, "mobile_number_ext", void 0);
-__decorate([
-    class_validator_1.IsString(),
-    class_validator_1.MinLength(10),
-    class_validator_1.MaxLength(10),
-    swagger_1.ApiProperty(),
-    __metadata("design:type", String)
-], AuthenticateMobileDto.prototype, "mobile_number", void 0);
 exports.AuthenticateMobileDto = AuthenticateMobileDto;
 //# sourceMappingURL=authenticateMobile.dto.js.map

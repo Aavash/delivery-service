@@ -21,7 +21,7 @@ let ProfileRequestController = class ProfileRequestController {
     }
 };
 ProfileRequestController = __decorate([
-    swagger_1.ApiTags('Rider'),
+    swagger_1.ApiTags('Rider Profile creation'),
     crud_1.Crud({
         model: {
             type: RiderProfileRequest_entity_1.RiderProfileRequest

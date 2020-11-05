@@ -4,7 +4,7 @@ import { RiderProfileRequest } from '../entities/RiderProfileRequest.entity';
 import { ApiTags } from '@nestjs/swagger';
 import { ProfileRequestService } from '../services/profileRequest.service';
 
-@ApiTags('Rider')
+@ApiTags('Rider Profile creation')
 @Crud({
   model: {
     type: RiderProfileRequest

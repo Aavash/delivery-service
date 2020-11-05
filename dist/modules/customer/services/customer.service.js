@@ -15,20 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerService = void 0;
 const common_1 = require("@nestjs/common");
 const Customer_entity_1 = require("../entities/Customer.entity");
-const crud_typeorm_1 = require("@nestjsx/crud-typeorm");
 const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const OtpLogs_entity_1 = require("../../auth/entities/OtpLogs.entity");
 const common_enum_1 = require("../../../common/constants/common.enum");
-let CustomerService = class CustomerService extends crud_typeorm_1.TypeOrmCrudService {
-    constructor(repo, otpLogsRepository) {
-        super(repo);
+const customer_repository_1 = require("../customer.repository");
+const jwt_1 = require("@nestjs/jwt");
+const getUserJwtToken_helper_1 = require("../../../common/jwt/getUserJwtToken.helper");
+let CustomerService = class CustomerService {
+    constructor(jwtService, customerRepository, otpLogsRepository) {
+        this.jwtService = jwtService;
+        this.customerRepository = customerRepository;
         this.otpLogsRepository = otpLogsRepository;
     }
-    async createOne(req, dto) {
-        const { full_name, otp_token, email } = dto;
+    async customerRegistration(dto) {
+        const { full_name, otp_token, email, device_id } = dto;
         const otpLog = await this.otpLogsRepository.findOne({
             where: {
+                device_id,
                 idx: otp_token,
                 status: common_enum_1.VerificationStatusEnum.ACTIVE,
                 type: common_enum_1.VerificationType.LOGIN,
@@ -36,29 +40,32 @@ let CustomerService = class CustomerService extends crud_typeorm_1.TypeOrmCrudSe
             }
         });
         if (!otpLog) {
-            throw new common_1.HttpException('Token could not be verified', common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException('Token and Device could not be verified', common_1.HttpStatus.FORBIDDEN);
         }
         else {
-            const customer = await this.repo.save({
+            const customer = await this.customerRepository.save({
                 full_name,
                 email,
                 mobile_number: otpLog.mobile_number,
                 mobile_number_ext: otpLog.mobile_number_ext,
                 is_completely_registered: true
             });
+            const { access_token, expires_in } = await getUserJwtToken_helper_1.getUserJwtToken(customer, this.jwtService);
             await this.otpLogsRepository.save({
                 id: otpLog.id,
                 status: common_enum_1.VerificationStatusEnum.EXPIRED,
             });
-            return customer;
+            return { 'message': 'Customer Created Successfully', access_token, expires_in };
         }
     }
 };
 CustomerService = __decorate([
     common_1.Injectable(),
-    __param(0, typeorm_1.InjectRepository(Customer_entity_1.Customer)),
-    __param(1, typeorm_1.InjectRepository(OtpLogs_entity_1.OtpLogs)),
-    __metadata("design:paramtypes", [Object, typeorm_2.Repository])
+    __param(1, typeorm_1.InjectRepository(Customer_entity_1.Customer)),
+    __param(2, typeorm_1.InjectRepository(OtpLogs_entity_1.OtpLogs)),
+    __metadata("design:paramtypes", [jwt_1.JwtService,
+        customer_repository_1.CustomerRepository,
+        typeorm_2.Repository])
 ], CustomerService);
 exports.CustomerService = CustomerService;
 //# sourceMappingURL=customer.service.js.map

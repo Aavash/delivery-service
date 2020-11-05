@@ -2,7 +2,7 @@ import {
   IsEmail,
   IsString,
   MaxLength,
-  MinLength, IsOptional, IsUUID,
+  MinLength, IsOptional, IsUUID, IsNotEmpty,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -25,4 +25,11 @@ export class OtpBasedRegistrationDto {
   @MaxLength(50)
   @IsOptional()
   email: string;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(2)
+  @MaxLength(1000)
+  @ApiProperty()
+  device_id: string;
 }

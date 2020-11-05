@@ -31,7 +31,7 @@ export class CustomerAuthService {
 
   }
 
-  async signIn(loginCredentialsDto: LoginPayloadDto): Promise<{accessToken, expires_in}> {
+  async signIn(loginCredentialsDto: LoginPayloadDto): Promise<{access_token, expires_in}> {
 
     const customer = await this.customerRepository.authenticateCustomer(loginCredentialsDto);
 
@@ -39,8 +39,8 @@ export class CustomerAuthService {
       throw new UnauthorizedException('Invalid credentials')
     }
 
-    const { accessToken, expires_in } = await getUserJwtToken(customer, this.jwtService);
+    const { access_token, expires_in } = await getUserJwtToken(customer, this.jwtService);
 
-    return { accessToken, expires_in }
+    return { access_token, expires_in }
   }
 }

@@ -10,7 +10,7 @@ export declare class CustomerAuthService {
         message: any;
     }>;
     signIn(loginCredentialsDto: LoginPayloadDto): Promise<{
-        accessToken: any;
+        access_token: any;
         expires_in: any;
     }>;
 }

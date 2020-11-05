@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 export declare function getUserJwtToken(user: any, jwtService: JwtService): Promise<{
-    accessToken: string;
+    access_token: string;
     payload: {
         idx: any;
         full_name: any;

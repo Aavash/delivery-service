@@ -38,6 +38,9 @@ let AuthService = class AuthService {
     async sendOtp(otpSendDto) {
         const { mobile_number, mobile_number_ext } = otpSendDto;
         await this.authValidator.validateRiderProfileRequestExists(mobile_number, mobile_number_ext);
+        const otpLog = await this.otpLogsRepository.findOne({
+            where: Object.assign(Object.assign({}, otpSendDto), { type: common_enum_1.VerificationType.LOGIN, status: common_enum_1.VerificationStatusEnum.UNCLAIMED })
+        });
         await this.otpLogsRepository.save(Object.assign(Object.assign({}, otpSendDto), { token: this.generateToken(), type: common_enum_1.VerificationType.LOGIN, status: common_enum_1.VerificationStatusEnum.UNCLAIMED })).then(otpLog => {
             this.otpLogsRepository.save({
                 id: otpLog.id,
@@ -48,15 +51,15 @@ let AuthService = class AuthService {
         return { message: 'Otp Sent successfully' };
     }
     async authenticateMobile(authDto) {
-        const { mobile_number, mobile_number_ext } = authDto;
+        const { mobile_number, mobile_number_ext, user_type, token, device_id } = authDto;
         let userRepository = null;
         const otpLog = await this.otpLogsRepository.findOne({
             where: Object.assign(Object.assign({}, authDto), { type: common_enum_1.VerificationType.LOGIN, status: common_enum_1.VerificationStatusEnum.UNCLAIMED })
         });
-        if (otpLog && otpLog.user_type == common_enum_1.UserTypeEnum.CUSTOMER) {
+        if (otpLog && (otpLog.user_type === common_enum_1.UserTypeEnum.CUSTOMER) && (user_type === common_enum_1.UserTypeEnum.CUSTOMER)) {
             userRepository = this.customerRepository;
         }
-        else if (otpLog && otpLog.user_type == common_enum_1.UserTypeEnum.RIDER) {
+        else if (otpLog && (otpLog.user_type == common_enum_1.UserTypeEnum.RIDER) && (user_type === common_enum_1.UserTypeEnum.CUSTOMER)) {
             userRepository = this.riderRepository;
             await this.authValidator.validateRiderProfileRequestExists(mobile_number, mobile_number_ext);
         }
@@ -67,9 +70,9 @@ let AuthService = class AuthService {
             where: { mobile_number, mobile_number_ext }
         });
         if (user) {
-            const { accessToken, expires_in } = await getUserJwtToken_helper_1.getUserJwtToken(user, this.jwtService);
+            const { access_token, expires_in } = await getUserJwtToken_helper_1.getUserJwtToken(user, this.jwtService);
             await this.otpLogsRepository.save(Object.assign(Object.assign({}, otpLog), { status: common_enum_1.VerificationStatusEnum.EXPIRED }));
-            return { accessToken, expires_in, user_exists: true };
+            return { access_token, expires_in, user_exists: true };
         }
         else {
             await this.otpLogsRepository.save(Object.assign(Object.assign({}, otpLog), { status: common_enum_1.VerificationStatusEnum.ACTIVE }));

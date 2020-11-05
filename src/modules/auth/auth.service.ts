@@ -4,7 +4,6 @@ import { OtpLogs } from './entities/OtpLogs.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { OtpSendDto } from '../../common/dtos/otpSendDto';
 import {
-  ApprovalStatusEnum,
   UserTypeEnum,
   VerificationStatusEnum,
   VerificationType,
@@ -46,6 +45,14 @@ export class AuthService {
     const { mobile_number, mobile_number_ext } = otpSendDto;
 
     await this.authValidator.validateRiderProfileRequestExists(mobile_number, mobile_number_ext);
+    const otpLog = await this.otpLogsRepository.findOne({
+      where: {
+        ...otpSendDto,
+        type: VerificationType.LOGIN,
+        status: VerificationStatusEnum.UNCLAIMED,
+      }
+    });
+
     await this.otpLogsRepository.save({
       ...otpSendDto,
       token: this.generateToken(),
@@ -66,7 +73,7 @@ export class AuthService {
   }
 
   async authenticateMobile(authDto: AuthenticateMobileDto){
-    const { mobile_number, mobile_number_ext } = authDto;
+    const { mobile_number, mobile_number_ext, user_type, token, device_id } = authDto;
     // todo: otp time duration validation
     let userRepository = null;
     const otpLog = await this.otpLogsRepository.findOne({
@@ -77,9 +84,11 @@ export class AuthService {
       }
     });
 
-    if (otpLog && otpLog.user_type == UserTypeEnum.CUSTOMER){
+    if (otpLog && (
+      otpLog.user_type === UserTypeEnum.CUSTOMER) && (user_type === UserTypeEnum.CUSTOMER) ){
       userRepository = this.customerRepository;
-    } else if (otpLog && otpLog.user_type == UserTypeEnum.RIDER){
+    } else if (otpLog && (
+      otpLog.user_type == UserTypeEnum.RIDER) && (user_type === UserTypeEnum.CUSTOMER)){
       userRepository = this.riderRepository;
       await this.authValidator.validateRiderProfileRequestExists(mobile_number, mobile_number_ext);
     } else {
@@ -91,14 +100,14 @@ export class AuthService {
         });
 
     if (user){
-      const { accessToken, expires_in } = await getUserJwtToken(user, this.jwtService);
+      const { access_token, expires_in } = await getUserJwtToken(user, this.jwtService);
 
       await this.otpLogsRepository.save({
         ...otpLog,
         status: VerificationStatusEnum.EXPIRED
       });
 
-      return { accessToken, expires_in, user_exists: true }
+      return { access_token, expires_in, user_exists: true }
     } else {
       await this.otpLogsRepository.save({
         ...otpLog,

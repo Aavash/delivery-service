@@ -1,11 +1,16 @@
-import { Customer } from '../entities/Customer.entity';
-import { TypeOrmCrudService } from '@nestjsx/crud-typeorm';
-import { CrudRequest } from '@nestjsx/crud';
 import { Repository } from 'typeorm';
 import { OtpLogs } from '../../auth/entities/OtpLogs.entity';
 import { OtpBasedRegistrationDto } from '../../../common/dtos/otpBasedRegistrationDto';
-export declare class CustomerService extends TypeOrmCrudService<Customer> {
+import { CustomerRepository } from '../customer.repository';
+import { JwtService } from '@nestjs/jwt';
+export declare class CustomerService {
+    private jwtService;
+    private customerRepository;
     private otpLogsRepository;
-    constructor(repo: any, otpLogsRepository: Repository<OtpLogs>);
-    createOne(req: CrudRequest, dto: OtpBasedRegistrationDto): Promise<Customer>;
+    constructor(jwtService: JwtService, customerRepository: CustomerRepository, otpLogsRepository: Repository<OtpLogs>);
+    customerRegistration(dto: OtpBasedRegistrationDto): Promise<{
+        message: string;
+        access_token: string;
+        expires_in: string;
+    }>;
 }

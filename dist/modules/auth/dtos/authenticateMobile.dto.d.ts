@@ -1,5 +1,4 @@
-export declare class AuthenticateMobileDto {
+import { OtpSendDto } from '../../../common/dtos/otpSendDto';
+export declare class AuthenticateMobileDto extends OtpSendDto {
     token: string;
-    mobile_number_ext: string;
-    mobile_number: string;
 }

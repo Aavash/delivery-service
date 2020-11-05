@@ -8,33 +8,33 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CustomerController = void 0;
 const common_1 = require("@nestjs/common");
 const customer_service_1 = require("../services/customer.service");
-const crud_1 = require("@nestjsx/crud");
-const Customer_entity_1 = require("../entities/Customer.entity");
 const swagger_1 = require("@nestjs/swagger");
 const otpBasedRegistrationDto_1 = require("../../../common/dtos/otpBasedRegistrationDto");
 let CustomerController = class CustomerController {
-    constructor(service) {
-        this.service = service;
+    constructor(customerService) {
+        this.customerService = customerService;
+    }
+    async customerRegistration(dto) {
+        return await this.customerService.customerRegistration(dto);
     }
 };
+__decorate([
+    common_1.Post('/customer-register/'),
+    __param(0, common_1.Body(common_1.ValidationPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [otpBasedRegistrationDto_1.OtpBasedRegistrationDto]),
+    __metadata("design:returntype", Promise)
+], CustomerController.prototype, "customerRegistration", null);
 CustomerController = __decorate([
-    swagger_1.ApiTags('Customer'),
-    crud_1.Crud({
-        model: {
-            type: Customer_entity_1.Customer
-        },
-        dto: {
-            create: otpBasedRegistrationDto_1.OtpBasedRegistrationDto
-        },
-        routes: {
-            only: ['createOneBase',]
-        }
-    }),
-    common_1.Controller('customer/customer-register'),
+    swagger_1.ApiTags('Customer Profile creation'),
+    common_1.Controller('customer'),
     __metadata("design:paramtypes", [customer_service_1.CustomerService])
 ], CustomerController);
 exports.CustomerController = CustomerController;

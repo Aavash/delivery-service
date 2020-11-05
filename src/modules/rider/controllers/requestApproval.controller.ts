@@ -12,8 +12,10 @@ import { FileFieldsInterceptor } from '@nestjs/platform-express'
 import { ProfileApprovalService } from '../services/requestApproval.service';
 import { OtpBasedRegistrationDto } from '../../../common/dtos/otpBasedRegistrationDto';
 import { RiderProfileCreateDto } from '../dtos/riderProfileCreate.dto';
+import { ApiTags } from '@nestjs/swagger';
 
 
+@ApiTags('Rider Profile creation')
 @Controller('rider')
 export class RequestApprovalController {
   constructor(

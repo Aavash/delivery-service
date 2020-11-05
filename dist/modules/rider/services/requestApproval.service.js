@@ -47,9 +47,10 @@ let ProfileApprovalService = class ProfileApprovalService {
         this.otpLogsRepository = otpLogsRepository;
     }
     async profileRequest(registrationDto, files) {
-        const { full_name, otp_token, email } = registrationDto;
+        const { full_name, otp_token, email, device_id } = registrationDto;
         const otpLog = await this.otpLogsRepository.findOne({
             where: {
+                device_id,
                 idx: otp_token,
                 status: common_enum_1.VerificationStatusEnum.ACTIVE,
                 user_type: common_enum_1.UserTypeEnum.RIDER,
@@ -60,11 +61,14 @@ let ProfileApprovalService = class ProfileApprovalService {
         let back_image_name = Date.now().toString();
         front_image_name = crypto.createHash('md5').update(front_image_name).digest('hex');
         back_image_name = crypto.createHash('md5').update(back_image_name).digest('hex');
+        if (!files.front_image[0] || !files.front_image[0]) {
+            throw new common_1.HttpException('Enter both front and back images', common_1.HttpStatus.FORBIDDEN);
+        }
         if (!otpLog) {
-            throw new common_1.HttpException('Token could not be verified', common_1.HttpStatus.FORBIDDEN);
+            throw new common_1.HttpException('Token and Device could not be verified', common_1.HttpStatus.FORBIDDEN);
         }
         else {
-            const profileRequest = await this.riderProfileRequestRepository.save({
+            await this.riderProfileRequestRepository.save({
                 full_name,
                 email,
                 mobile_number: otpLog.mobile_number,

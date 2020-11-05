@@ -12,10 +12,10 @@ async function getUserJwtToken(user, jwtService) {
         mobile_number: user.mobile_number,
         mobile_number_ext: user.mobile_number_ext,
     };
-    const accessToken = jwtService.sign(payload, {
+    const access_token = jwtService.sign(payload, {
         expiresIn: config_1.default.expiresIn,
     });
-    return { accessToken, payload, expires_in: config_1.default.expiresIn };
+    return { access_token, payload, expires_in: config_1.default.expiresIn };
 }
 exports.getUserJwtToken = getUserJwtToken;
 //# sourceMappingURL=getUserJwtToken.helper.js.map
