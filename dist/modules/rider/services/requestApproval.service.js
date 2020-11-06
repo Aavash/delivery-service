@@ -61,8 +61,12 @@ let ProfileApprovalService = class ProfileApprovalService {
         let back_image_name = Date.now().toString();
         front_image_name = crypto.createHash('md5').update(front_image_name).digest('hex');
         back_image_name = crypto.createHash('md5').update(back_image_name).digest('hex');
-        if (!files.front_image[0] || !files.front_image[0]) {
-            throw new common_1.HttpException('Enter both front and back images', common_1.HttpStatus.FORBIDDEN);
+        const noImageException = new common_1.HttpException('Enter both front and back verification images', common_1.HttpStatus.FORBIDDEN);
+        if (!files) {
+            throw noImageException;
+        }
+        else if ((!files.front_image[0] || !files.back_image[0])) {
+            throw noImageException;
         }
         if (!otpLog) {
             throw new common_1.HttpException('Token and Device could not be verified', common_1.HttpStatus.FORBIDDEN);

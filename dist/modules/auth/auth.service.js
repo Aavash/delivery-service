@@ -59,12 +59,12 @@ let AuthService = class AuthService {
         if (otpLog && (otpLog.user_type === common_enum_1.UserTypeEnum.CUSTOMER) && (user_type === common_enum_1.UserTypeEnum.CUSTOMER)) {
             userRepository = this.customerRepository;
         }
-        else if (otpLog && (otpLog.user_type == common_enum_1.UserTypeEnum.RIDER) && (user_type === common_enum_1.UserTypeEnum.CUSTOMER)) {
+        else if (otpLog && (otpLog.user_type == common_enum_1.UserTypeEnum.RIDER) && (user_type === common_enum_1.UserTypeEnum.RIDER)) {
             userRepository = this.riderRepository;
             await this.authValidator.validateRiderProfileRequestExists(mobile_number, mobile_number_ext);
         }
         else {
-            throw new common_1.HttpException('Invalid or expired token', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException('Invalid or Expired token', common_1.HttpStatus.BAD_REQUEST);
         }
         const user = await userRepository.findOne({
             where: { mobile_number, mobile_number_ext }

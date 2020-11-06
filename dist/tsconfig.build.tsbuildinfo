@@ -3357,7 +3357,7 @@
         "affectsGlobalScope": false
       },
       "../src/modules/rider/services/requestApproval.service.ts": {
-        "version": "9eea5bac06b3889f9b056443894b9c0b142642a0f684bc6072fea431c7cad996",
+        "version": "472a4509fb397b974e0cf17ff43026c157d039036ccbab41de582ed2caaff40b",
         "signature": "cbeb53fa79ce7336b72761db499ecc60f44538b4b8dce45723e86ebfb2f5e73c",
         "affectsGlobalScope": false
       },
@@ -4282,7 +4282,7 @@
         "affectsGlobalScope": false
       },
       "../src/modules/auth/auth.service.ts": {
-        "version": "6648173c56cc58ed4ed1913591d62404aea562deedc353a026ce2e928d55385f",
+        "version": "fd9ab7c14e1b64dd156325398544d8935bc44f920bf21c87118698ff58b8016d",
         "signature": "e611023dda279a3a1cfde5881c8ce86312e9dda741a39e38314986a86650604e",
         "affectsGlobalScope": false
       },

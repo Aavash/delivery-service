@@ -44,8 +44,13 @@ export class ProfileApprovalService {
     front_image_name = crypto.createHash('md5').update(front_image_name).digest('hex');
     back_image_name = crypto.createHash('md5').update(back_image_name).digest('hex');
 
-    if (!files.front_image[0] || !files.front_image[0]) {
-      throw new HttpException('Enter both front and back images', HttpStatus.FORBIDDEN)
+    const noImageException = new HttpException(
+      'Enter both front and back verification images', HttpStatus.FORBIDDEN);
+
+    if (!files) {
+      throw noImageException
+    } else if ((!files.front_image[0] || !files.back_image[0])) {
+      throw noImageException
     }
 
     if (!otpLog) {
