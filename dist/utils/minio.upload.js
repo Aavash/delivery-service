@@ -51,7 +51,6 @@ class MinioUploadClient {
         const fileName = `${hashedFileName}.${file.originalname.split('.').splice(-1)[0]}`;
         await this.minioClient.putObject(this.bucketName, fileName, file.buffer)
             .catch(error => {
-            console.debug(error);
             throw new common_1.HttpException('There was an error uploading file', common_1.HttpStatus.CONFLICT);
         });
         return `${this.bucketName}/${fileName}`;
