@@ -26,4 +26,4 @@ exports.editFileNameTest = (req, file, callback) => {
     const fileExtName = path_1.extname(file.originalname);
     callback(null, `${name}${fileExtName}`);
 };
-//# sourceMappingURL=file-upload.utils.js.map
+//# sourceMappingURL=file-upload-validation.utils.js.map

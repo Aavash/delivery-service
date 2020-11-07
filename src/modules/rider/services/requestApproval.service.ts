@@ -1,6 +1,6 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { getConnection, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { OtpLogs } from '../../auth/entities/OtpLogs.entity';
 import { OtpBasedRegistrationDto } from '../../../common/dtos/otpBasedRegistrationDto';
 import {
@@ -10,13 +10,12 @@ import {
   VerificationType,
 } from '../../../common/constants/common.enum';
 import { RiderProfileRequest } from '../entities/RiderProfileRequest.entity';
-import * as crypto from 'crypto';
 import { Rider } from '../entities/Rider.entity';
+import { minioClient } from '../../../utils/minio.upload';
 
 @Injectable()
 export class ProfileApprovalService {
   constructor(
-    // @Inject(MINIO_CONNECTION) private readonly minioClient,
     @InjectRepository(Rider)
     private riderRepository: Repository<Rider>,
     @InjectRepository(RiderProfileRequest)
@@ -25,9 +24,20 @@ export class ProfileApprovalService {
     private otpLogsRepository: Repository<OtpLogs>,
   ) {}
 
-  async profileRequest(registrationDto: OtpBasedRegistrationDto, files): Promise<unknown> {
 
-    const { full_name, otp_token, email, device_id } = registrationDto;
+  validateImage(files){
+    const noImageException = new HttpException(
+      'Enter both front and back verification images', HttpStatus.FORBIDDEN);
+
+    if (!files) {
+      throw noImageException
+    } else if ((!files.front_image[0] || !files.back_image[0])) {
+      throw noImageException
+    }
+  }
+
+  async validateOtp(registrationDto: OtpBasedRegistrationDto) {
+    const { otp_token, device_id } = registrationDto;
 
     const otpLog = await this.otpLogsRepository.findOne({
       where: {
@@ -38,26 +48,24 @@ export class ProfileApprovalService {
         type: VerificationType.LOGIN,
       },
     });
-    let front_image_name = Date.now().toString();
-    let back_image_name = Date.now().toString();
-
-    front_image_name = crypto.createHash('md5').update(front_image_name).digest('hex');
-    back_image_name = crypto.createHash('md5').update(back_image_name).digest('hex');
-
-    const noImageException = new HttpException(
-      'Enter both front and back verification images', HttpStatus.FORBIDDEN);
-
-    if (!files) {
-      throw noImageException
-    } else if ((!files.front_image[0] || !files.back_image[0])) {
-      throw noImageException
-    }
 
     if (!otpLog) {
       throw new HttpException('Token and Device could not be verified', HttpStatus.FORBIDDEN)
-
     } else {
-    // await this.minioClient.putObject(config.minio.MINIO_BUCKET, front_image_name, files.front_image[0].buffer);
+      return otpLog
+    }
+
+  }
+
+  async profileRequest(registrationDto: OtpBasedRegistrationDto, files): Promise<unknown> {
+
+    const { full_name, email } = registrationDto;
+
+    this.validateImage(files);
+    const otpLog = await this.validateOtp(registrationDto);
+
+    const frontImagePath = await minioClient.uploadFile(files.front_image[0]);
+    const backImagePath = await minioClient.uploadFile(files.back_image[0]);
 
     await this.riderProfileRequestRepository.save({
       full_name,
@@ -66,8 +74,8 @@ export class ProfileApprovalService {
       mobile_number_ext: otpLog.mobile_number_ext,
       is_completely_registered: false,
       approval_status: ApprovalStatusEnum.PENDING,
-      front_image: front_image_name,
-      back_image: back_image_name
+      front_image: frontImagePath,
+      back_image: backImagePath
     });
 
     await this.otpLogsRepository.save({
@@ -76,7 +84,6 @@ export class ProfileApprovalService {
       });
 
     return { message: 'Successfully created profile request' }
-    }
 
   }
 

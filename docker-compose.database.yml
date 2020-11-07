@@ -7,7 +7,8 @@ services:
     container_name: "db_quick_service"
     build:
         context: ./database
-    env_file: "database/env/${ENV}.env"
+    image: database-service
+    env_file: "env/${ENV}.env"
     ports:
       - 4088:5432  
     networks:

@@ -10,13 +10,13 @@ services:
         build:
             context: "."
         image: delivery-service
-        command: npm run start:prod
         networks:
         - quick-service-net
         ports:
         - "4099:8000"
         volumes:
             - .:/usr/src/app
+            - ./media:/usr/src/app/media
 #            - ./node_modules:/usr/src/app/node_modules
         restart: unless-stopped
 

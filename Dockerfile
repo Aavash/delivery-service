@@ -5,9 +5,11 @@ WORKDIR /usr/src/app
 #COPY ./.certi/ca.crt /usr/local/share/ca-certificates/
 #RUN update-ca-certificates
 COPY package.json ./
-#COPY yarn.lock ./
 COPY ./dist .
+COPY ./service-entrypoint.sh /service-entrypoint.sh
+
 RUN yarn install --production=true
-#RUN yarn run build
-#RUN yarn run typeorm migration:run
 RUN ls -la
+
+RUN chmod +x /service-entrypoint.sh
+ENTRYPOINT ["/service-entrypoint.sh"]

@@ -8,24 +8,14 @@ services:
         image: minio/minio
         container_name: minio-service
         hostname: minio-service
+        restart: unless-stopped
         volumes:
-          - /data:/data
+          - ./media:/data
         ports:
           - "9001:9000"
         networks:
          - quick-service-net
-        environment:
-          MINIO_ACCESS_KEY: AKIAIOSFODNN7EXAMPLE
-          MINIO_SECRET_KEY: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
-          MINIO_BUCKET: riderdocument
-    #    deploy:
-    #      restart_policy:
-    #        delay: 10s
-    #        max_attempts: 10
-    #        window: 60s
-    #      placement:
-    #        constraints:
-    #          - node.labels.minio1==true
+        env_file: "env/${ENV}.env"
         command:  server /data
         healthcheck:
           test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
@@ -34,10 +24,10 @@ services:
           retries: 3
 
 networks:
-    quick-service-net:
-        name: quick-service-network
-        ipam:
-            driver: default
-            config:
-                - subnet: "172.16.238.0/24"
-                - subnet: "2001:3984:3989::/64"
+  quick-service-net:
+      name: quick-service-network
+      ipam:
+          driver: default
+          config:
+              - subnet: "192.168.0.0/24"
+              - subnet: "4001:5984:5989::/64"

@@ -8,6 +8,8 @@ export declare class ProfileApprovalService {
     private riderProfileRequestRepository;
     private otpLogsRepository;
     constructor(riderRepository: Repository<Rider>, riderProfileRequestRepository: Repository<RiderProfileRequest>, otpLogsRepository: Repository<OtpLogs>);
+    validateImage(files: any): void;
+    validateOtp(registrationDto: OtpBasedRegistrationDto): Promise<OtpLogs>;
     profileRequest(registrationDto: OtpBasedRegistrationDto, files: any): Promise<unknown>;
     approveRequest(profileCreateDto: any): Promise<{
         message: string;

@@ -6,7 +6,6 @@ import deliveryServiceDb from './config/typeorm/typeorm.config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './common/middlewares/logger.middleware';
 import { AuthModule } from './modules/auth/auth.module';
-import { NestMinioModule } from './modules/minio-client';
 import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
@@ -16,13 +15,6 @@ import { MulterModule } from '@nestjs/platform-express';
     DeliveryModule,
     CustomerModule,
     AuthModule,
-    NestMinioModule.register({
-      endPoint: 'play.min.io',
-      port: 9000,
-      useSSL: true,
-      accessKey: 'Q3AM3UQ867SPQQA43P2F',
-      secretKey: 'zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG',
-    }),
     MulterModule.register({
       dest: '/data',
     })

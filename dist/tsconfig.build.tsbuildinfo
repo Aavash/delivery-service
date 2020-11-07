@@ -3356,9 +3356,14 @@
         "signature": "eacb4e4a2bd9f2430be696a0811a7e9652f8765aa19a3e0256675d188e49c23c",
         "affectsGlobalScope": false
       },
+      "../src/utils/minio.upload.ts": {
+        "version": "e9cdc7a6db28d1f463990d96e2a4566a0861679839d708f91845d5d4dcdbc3f3",
+        "signature": "f6eec49ba697b6826589455ab471917f8eb82d5ce3f6a6aad9b0f8647de649c1",
+        "affectsGlobalScope": false
+      },
       "../src/modules/rider/services/requestApproval.service.ts": {
-        "version": "472a4509fb397b974e0cf17ff43026c157d039036ccbab41de582ed2caaff40b",
-        "signature": "cbeb53fa79ce7336b72761db499ecc60f44538b4b8dce45723e86ebfb2f5e73c",
+        "version": "22839a9466bb20501d38bde2609cfd38fead4c6a26122fd182f315440b04f1ba",
+        "signature": "55433e4bd2eb96f07b8658be9d468bfc4510286932b83346a041c7e75b07f6d2",
         "affectsGlobalScope": false
       },
       "../node_modules/@nestjs/core/adapters/http-adapter.d.ts": {
@@ -3691,71 +3696,6 @@
         "signature": "50091d1111dde15c1976d7cbca5158b01272e28a953171c0d080b64edc5750ea",
         "affectsGlobalScope": false
       },
-      "../src/modules/minio-client/constants.ts": {
-        "version": "f01e4cc47903c228c38f1670428ea5184832ecb18403dbd74c2be74ab198bbd8",
-        "signature": "9eb1f1536a11e127ebd1295089e9acd233ec290584a5b7807920b163d980c739",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts": {
-        "version": "6081256eb2703bbe6381c9a5cae11127e559b4eac083b0dbbf776236942385df",
-        "signature": "526db8f4dd95cd85ee2028ee75d1b8e13d54e854a517606d484f3fc4ce352934",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts": {
-        "version": "d788a1c590fdb847d707c01bf7dd351e94afeb5c345ae493d13c74dbf5171633",
-        "signature": "3b2cedbad8702aadd24a829100c0c7e9dc8f68a3ae2ba383322d4d6810ceed74",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/interfaces/nest-minio-module-async-options.interface.ts": {
-        "version": "1a95184daa7078a10169d18700ffdaf04802cb36258b712a2ab06a065be17609",
-        "signature": "6d2a78a3f78cf4b265df84410fef638c82a99bee0a2b096e5daba7965edd7c00",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/interfaces/index.ts": {
-        "version": "38fe590c3513df08be84f3a46b11879a80824dade222c58b50ecccc2bcad2e12",
-        "signature": "38fe590c3513df08be84f3a46b11879a80824dade222c58b50ecccc2bcad2e12",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/nest-minio.service.ts": {
-        "version": "de94fa41f775774cc3e4248721c9523b72300eb7775cc420e62388fa6795afc7",
-        "signature": "a2e44f02895a25bdfd3397a8a6c3065f4254b5b6805f7e0c49374bad82f2b992",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/nest-minio.providers.ts": {
-        "version": "b6bf9f499952b66f51db39d5931e512b5fc85b07df180f65e1c42e3f56a363b2",
-        "signature": "1707c60c1daee3d46b545503a2db973e2523c9d4e4c9b1bc83a40e1b7c6161d0",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/nest-minio-connection.provider.ts": {
-        "version": "6c3e1ea59d73f2cd4c8834a0765bf4ce2a6a6f76c5f7432404ee0c5f92120a47",
-        "signature": "8fdfffe1e9357cac83fa701541804553ca758bf1ce2af9bb86941513eec57fd5",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/nest-minio.module.ts": {
-        "version": "eca37f2beb8c862ea13afe7194ea94d1dfca143cf3d240651210c52f71cac1ca",
-        "signature": "c82dbc1a975aaeae23e387da8a0cb2b358381be70215d7210ee1bca5659ce42e",
-        "affectsGlobalScope": false
-      },
-      "../src/modules/minio-client/index.ts": {
-        "version": "fe1f8546f45ecb870e6e9f06f732c39614d2740d374aec966d7450d7e0d4e9da",
-        "signature": "fe1f8546f45ecb870e6e9f06f732c39614d2740d374aec966d7450d7e0d4e9da",
-        "affectsGlobalScope": false
-      },
-      "../node_modules/dotenv/types/index.d.ts": {
-        "version": "c9ae0b351a07b52f29a28e869d8c7c8d29743bbb5eeddc7c0b5b2a69a2450528",
-        "signature": "c9ae0b351a07b52f29a28e869d8c7c8d29743bbb5eeddc7c0b5b2a69a2450528",
-        "affectsGlobalScope": false
-      },
-      "../src/utils/cipher.ts": {
-        "version": "cd818af896b1225bbd4b7c81fabd6083273c4205b4404cc145801d54d419f93a",
-        "signature": "a1ba74dadc8926f82f3cb59e433844197fd212378f459dd085df93fa9ec32394",
-        "affectsGlobalScope": false
-      },
-      "../src/config/index.ts": {
-        "version": "b2ab99e10edd09279e64394a5c2dc5c3b7dc3d334a92695e46f1e2e57dfefcd5",
-        "signature": "3e6de3b6bf5bdbf215a3d48c031e2fbdb53b7632d271fea62fa6c2a47833af72",
-        "affectsGlobalScope": false
-      },
       "../node_modules/@nestjsx/crud-request/lib/exceptions/request-query.exception.d.ts": {
         "version": "15064948710d921d7a28bf8c6714f7dc56ebf093ec721a9e4ad9b3aed605cdcc",
         "signature": "15064948710d921d7a28bf8c6714f7dc56ebf093ec721a9e4ad9b3aed605cdcc",
@@ -4052,7 +3992,7 @@
         "affectsGlobalScope": false
       },
       "../src/modules/rider/rider.module.ts": {
-        "version": "5d518afc9d5aa33c72a171660fc6270f62b626b51d11afdfb31b6db958db5d9b",
+        "version": "5a95c629d29e0d5d09fdff93b671296dc86a0f1ee7e3a677cd0fb7709f3ba05b",
         "signature": "62646eba2b008b8398ebfd9b6ea69365266388cd1a979e9927e90c0be04d9313",
         "affectsGlobalScope": false
       },
@@ -4129,6 +4069,21 @@
       "../node_modules/@nestjs/jwt/index.d.ts": {
         "version": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
         "signature": "8f1241f5d9f0d3d72117768b3c974e462840fbd85026fb66685078945404cf2f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/dotenv/types/index.d.ts": {
+        "version": "c9ae0b351a07b52f29a28e869d8c7c8d29743bbb5eeddc7c0b5b2a69a2450528",
+        "signature": "c9ae0b351a07b52f29a28e869d8c7c8d29743bbb5eeddc7c0b5b2a69a2450528",
+        "affectsGlobalScope": false
+      },
+      "../src/utils/cipher.ts": {
+        "version": "cd818af896b1225bbd4b7c81fabd6083273c4205b4404cc145801d54d419f93a",
+        "signature": "a1ba74dadc8926f82f3cb59e433844197fd212378f459dd085df93fa9ec32394",
+        "affectsGlobalScope": false
+      },
+      "../src/config/index.ts": {
+        "version": "089b83eb68aa0ae21e2e7eec12c92847508d59a8a86097a6b4510067f1b8fe20",
+        "signature": "620ed3e0e3bea0235ffcb4757d3aa65a9bde0decdd82767980439c7825c8fac1",
         "affectsGlobalScope": false
       },
       "../src/common/jwt/getUserJwtToken.helper.ts": {
@@ -4297,13 +4252,8 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "9639e5585292b384af5612d1cf01e22795c7e931d00d93a2235b40be279e74a3",
+        "version": "036c6ea39795c2f712cd96eef4a707c6e8bf7d28d2cbaf911230c9951caa3890",
         "signature": "d39702f23fedac076a5bf0959fcd2fb52b098df19da2952b3f9a92c8a3c7537d",
-        "affectsGlobalScope": false
-      },
-      "../src/common/filters/Internal.filter.ts": {
-        "version": "0fff526649dfa793ea09f191f0c5d363df586592215983de71c4a84320f0fb51",
-        "signature": "8136b14a89689c749a62f17126406f890c3d6295c944503b81547432c6fa6086",
         "affectsGlobalScope": false
       },
       "../node_modules/helmet/dist/middlewares/content-security-policy/index.d.ts": {
@@ -4541,8 +4491,13 @@
         "signature": "7b5ed961a0e03965299591d73de8b8c41e8a68105ff4fc07a240b0dfb94a5a3d",
         "affectsGlobalScope": false
       },
+      "../src/common/filters/Internal.filter.ts": {
+        "version": "0fff526649dfa793ea09f191f0c5d363df586592215983de71c4a84320f0fb51",
+        "signature": "8136b14a89689c749a62f17126406f890c3d6295c944503b81547432c6fa6086",
+        "affectsGlobalScope": false
+      },
       "../src/main.ts": {
-        "version": "18d1a1bf1c8fba908964d910726e9db105bb1fab658eb70d04ddb699f7421394",
+        "version": "8d4540e616dd78e5e16e2bc7a7372f2f827dd43e4e97d784b653fce7c0590644",
         "signature": "8e609bb71c20b858c77f0e9f90bb1319db8477b13f9f965f1a1e18524bf50881",
         "affectsGlobalScope": false
       },
@@ -4616,7 +4571,7 @@
         "signature": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
         "affectsGlobalScope": false
       },
-      "../src/utils/file-upload.utils.ts": {
+      "../src/utils/file-upload-validation.utils.ts": {
         "version": "3682ed999193ee5d449be63bbae74c1f827c5ad6cca7924c2b06370ae1fa25c5",
         "signature": "229e13145c179698a730869ae307090082b6186e848220685dc584aa80e42548",
         "affectsGlobalScope": false
@@ -8230,7 +8185,6 @@
         "../src/modules/auth/auth.module.ts",
         "../src/modules/customer/customer.module.ts",
         "../src/modules/delivery/delivery.module.ts",
-        "../src/modules/minio-client/index.ts",
         "../src/modules/rider/rider.module.ts"
       ],
       "../src/common/GetUser.ts": [
@@ -8296,6 +8250,8 @@
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/core/index.d.ts",
         "../node_modules/@nestjs/swagger/index.d.ts",
+        "../node_modules/@types/express/index.d.ts",
+        "../node_modules/@types/node/path.d.ts",
         "../node_modules/helmet/dist/index.d.ts",
         "../src/app.module.ts",
         "../src/common/filters/Internal.filter.ts",
@@ -8459,46 +8415,6 @@
         "../src/common/entitities/base.entity.ts",
         "../src/modules/delivery/entities/DeliveryRequest.entity.ts"
       ],
-      "../src/modules/minio-client/index.ts": [
-        "../src/modules/minio-client/constants.ts",
-        "../src/modules/minio-client/interfaces/index.ts",
-        "../src/modules/minio-client/nest-minio.module.ts",
-        "../src/modules/minio-client/nest-minio.service.ts"
-      ],
-      "../src/modules/minio-client/interfaces/index.ts": [
-        "../src/modules/minio-client/interfaces/nest-minio-module-async-options.interface.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts"
-      ],
-      "../src/modules/minio-client/interfaces/nest-minio-module-async-options.interface.ts": [
-        "../node_modules/@nestjs/common/interfaces/index.d.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts"
-      ],
-      "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts": [
-        "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts"
-      ],
-      "../src/modules/minio-client/nest-minio-connection.provider.ts": [
-        "../src/modules/minio-client/constants.ts",
-        "../src/modules/minio-client/nest-minio.service.ts"
-      ],
-      "../src/modules/minio-client/nest-minio.module.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/modules/minio-client/constants.ts",
-        "../src/modules/minio-client/interfaces/index.ts",
-        "../src/modules/minio-client/nest-minio-connection.provider.ts",
-        "../src/modules/minio-client/nest-minio.providers.ts",
-        "../src/modules/minio-client/nest-minio.service.ts"
-      ],
-      "../src/modules/minio-client/nest-minio.providers.ts": [
-        "../src/modules/minio-client/constants.ts",
-        "../src/modules/minio-client/interfaces/index.ts"
-      ],
-      "../src/modules/minio-client/nest-minio.service.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/modules/minio-client/constants.ts",
-        "../src/modules/minio-client/interfaces/index.ts"
-      ],
       "../src/modules/rider/controllers/profileRequest.controller.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/swagger/index.d.ts",
@@ -8543,9 +8459,7 @@
       "../src/modules/rider/rider.module.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../src/config/index.ts",
         "../src/modules/auth/entities/OtpLogs.entity.ts",
-        "../src/modules/minio-client/index.ts",
         "../src/modules/rider/controllers/profileRequest.controller.ts",
         "../src/modules/rider/controllers/requestApproval.controller.ts",
         "../src/modules/rider/entities/Rider.entity.ts",
@@ -8562,18 +8476,18 @@
       "../src/modules/rider/services/requestApproval.service.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/typeorm/index.d.ts",
-        "../node_modules/@types/node/crypto.d.ts",
         "../node_modules/typeorm/index.d.ts",
         "../src/common/constants/common.enum.ts",
         "../src/common/dtos/otpBasedRegistrationDto.ts",
         "../src/modules/auth/entities/OtpLogs.entity.ts",
         "../src/modules/rider/entities/Rider.entity.ts",
-        "../src/modules/rider/entities/RiderProfileRequest.entity.ts"
+        "../src/modules/rider/entities/RiderProfileRequest.entity.ts",
+        "../src/utils/minio.upload.ts"
       ],
       "../src/utils/cipher.ts": [
         "../node_modules/@types/node/crypto.d.ts"
       ],
-      "../src/utils/file-upload.utils.ts": [
+      "../src/utils/file-upload-validation.utils.ts": [
         "../node_modules/@types/node/path.d.ts"
       ],
       "../src/utils/helperFunctions.utils.ts": [
@@ -8594,6 +8508,10 @@
         "../node_modules/argon2/argon2.d.ts",
         "../node_modules/axios/index.d.ts",
         "../node_modules/class-transformer/index.d.ts"
+      ],
+      "../src/utils/minio.upload.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@types/node/crypto.d.ts"
       ]
     },
     "exportedModulesMap": {
@@ -12035,38 +11953,6 @@
         "../src/common/entitities/base.entity.ts",
         "../src/modules/delivery/entities/DeliveryRequest.entity.ts"
       ],
-      "../src/modules/minio-client/index.ts": [
-        "../src/modules/minio-client/constants.ts",
-        "../src/modules/minio-client/interfaces/index.ts",
-        "../src/modules/minio-client/nest-minio.module.ts",
-        "../src/modules/minio-client/nest-minio.service.ts"
-      ],
-      "../src/modules/minio-client/interfaces/index.ts": [
-        "../src/modules/minio-client/interfaces/nest-minio-module-async-options.interface.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts"
-      ],
-      "../src/modules/minio-client/interfaces/nest-minio-module-async-options.interface.ts": [
-        "../node_modules/@nestjs/common/interfaces/index.d.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts",
-        "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts"
-      ],
-      "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts": [
-        "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts"
-      ],
-      "../src/modules/minio-client/nest-minio-connection.provider.ts": [
-        "../src/modules/minio-client/nest-minio.service.ts"
-      ],
-      "../src/modules/minio-client/nest-minio.module.ts": [
-        "../node_modules/@nestjs/common/index.d.ts",
-        "../src/modules/minio-client/interfaces/index.ts"
-      ],
-      "../src/modules/minio-client/nest-minio.providers.ts": [
-        "../src/modules/minio-client/interfaces/index.ts"
-      ],
-      "../src/modules/minio-client/nest-minio.service.ts": [
-        "../src/modules/minio-client/interfaces/index.ts"
-      ],
       "../src/modules/rider/controllers/profileRequest.controller.ts": [
         "../node_modules/@nestjsx/crud/lib/index.d.ts",
         "../src/modules/rider/entities/RiderProfileRequest.entity.ts",
@@ -13066,16 +12952,6 @@
       "../src/modules/delivery/entities/DeliveryRatingReview.entity.ts",
       "../src/modules/delivery/entities/DeliveryRequest.entity.ts",
       "../src/modules/delivery/entities/PackageDeliveryLocationRequest.entity.ts",
-      "../src/modules/minio-client/constants.ts",
-      "../src/modules/minio-client/index.ts",
-      "../src/modules/minio-client/interfaces/index.ts",
-      "../src/modules/minio-client/interfaces/nest-minio-module-async-options.interface.ts",
-      "../src/modules/minio-client/interfaces/nest-minio-options-factory.interface.ts",
-      "../src/modules/minio-client/interfaces/nest-minio-options.interface.ts",
-      "../src/modules/minio-client/nest-minio-connection.provider.ts",
-      "../src/modules/minio-client/nest-minio.module.ts",
-      "../src/modules/minio-client/nest-minio.providers.ts",
-      "../src/modules/minio-client/nest-minio.service.ts",
       "../src/modules/rider/controllers/profileRequest.controller.ts",
       "../src/modules/rider/controllers/requestApproval.controller.ts",
       "../src/modules/rider/dtos/riderProfileCreate.dto.ts",
@@ -13083,11 +12959,9 @@
       "../src/modules/rider/entities/RiderIdentitfication.entity.ts",
       "../src/modules/rider/entities/RiderProfileRequest.entity.ts",
       "../src/modules/rider/rider.jwtStrategy.ts",
-      "../src/modules/rider/rider.module.ts",
       "../src/modules/rider/services/profileRequest.service.ts",
-      "../src/modules/rider/services/requestApproval.service.ts",
       "../src/utils/cipher.ts",
-      "../src/utils/file-upload.utils.ts",
+      "../src/utils/file-upload-validation.utils.ts",
       "../src/utils/helperFunctions.utils.ts",
       "../src/utils/helpers.ts"
     ]

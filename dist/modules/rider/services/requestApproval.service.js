@@ -1,28 +1,9 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
 };
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
@@ -38,16 +19,25 @@ const typeorm_2 = require("typeorm");
 const OtpLogs_entity_1 = require("../../auth/entities/OtpLogs.entity");
 const common_enum_1 = require("../../../common/constants/common.enum");
 const RiderProfileRequest_entity_1 = require("../entities/RiderProfileRequest.entity");
-const crypto = __importStar(require("crypto"));
 const Rider_entity_1 = require("../entities/Rider.entity");
+const minio_upload_1 = require("../../../utils/minio.upload");
 let ProfileApprovalService = class ProfileApprovalService {
     constructor(riderRepository, riderProfileRequestRepository, otpLogsRepository) {
         this.riderRepository = riderRepository;
         this.riderProfileRequestRepository = riderProfileRequestRepository;
         this.otpLogsRepository = otpLogsRepository;
     }
-    async profileRequest(registrationDto, files) {
-        const { full_name, otp_token, email, device_id } = registrationDto;
+    validateImage(files) {
+        const noImageException = new common_1.HttpException('Enter both front and back verification images', common_1.HttpStatus.FORBIDDEN);
+        if (!files) {
+            throw noImageException;
+        }
+        else if ((!files.front_image[0] || !files.back_image[0])) {
+            throw noImageException;
+        }
+    }
+    async validateOtp(registrationDto) {
+        const { otp_token, device_id } = registrationDto;
         const otpLog = await this.otpLogsRepository.findOne({
             where: {
                 device_id,
@@ -57,37 +47,34 @@ let ProfileApprovalService = class ProfileApprovalService {
                 type: common_enum_1.VerificationType.LOGIN,
             },
         });
-        let front_image_name = Date.now().toString();
-        let back_image_name = Date.now().toString();
-        front_image_name = crypto.createHash('md5').update(front_image_name).digest('hex');
-        back_image_name = crypto.createHash('md5').update(back_image_name).digest('hex');
-        const noImageException = new common_1.HttpException('Enter both front and back verification images', common_1.HttpStatus.FORBIDDEN);
-        if (!files) {
-            throw noImageException;
-        }
-        else if ((!files.front_image[0] || !files.back_image[0])) {
-            throw noImageException;
-        }
         if (!otpLog) {
             throw new common_1.HttpException('Token and Device could not be verified', common_1.HttpStatus.FORBIDDEN);
         }
         else {
-            await this.riderProfileRequestRepository.save({
-                full_name,
-                email,
-                mobile_number: otpLog.mobile_number,
-                mobile_number_ext: otpLog.mobile_number_ext,
-                is_completely_registered: false,
-                approval_status: common_enum_1.ApprovalStatusEnum.PENDING,
-                front_image: front_image_name,
-                back_image: back_image_name
-            });
-            await this.otpLogsRepository.save({
-                id: otpLog.id,
-                status: common_enum_1.VerificationStatusEnum.EXPIRED,
-            });
-            return { message: 'Successfully created profile request' };
+            return otpLog;
         }
+    }
+    async profileRequest(registrationDto, files) {
+        const { full_name, email } = registrationDto;
+        this.validateImage(files);
+        const otpLog = await this.validateOtp(registrationDto);
+        const frontImagePath = await minio_upload_1.minioClient.uploadFile(files.front_image[0]);
+        const backImagePath = await minio_upload_1.minioClient.uploadFile(files.back_image[0]);
+        await this.riderProfileRequestRepository.save({
+            full_name,
+            email,
+            mobile_number: otpLog.mobile_number,
+            mobile_number_ext: otpLog.mobile_number_ext,
+            is_completely_registered: false,
+            approval_status: common_enum_1.ApprovalStatusEnum.PENDING,
+            front_image: frontImagePath,
+            back_image: backImagePath
+        });
+        await this.otpLogsRepository.save({
+            id: otpLog.id,
+            status: common_enum_1.VerificationStatusEnum.EXPIRED,
+        });
+        return { message: 'Successfully created profile request' };
     }
     async approveRequest(profileCreateDto) {
         const request_idx = profileCreateDto.request_idx;

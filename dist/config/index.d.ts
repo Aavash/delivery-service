@@ -21,8 +21,8 @@ declare const config: {
     minio: {
         MINIO_ENDPOINT: string;
         MINIO_PORT: number;
-        MINIO_ACCESSKEY: string;
-        MINIO_SECRETKEY: string;
+        MINIO_ACCESS_KEY: string;
+        MINIO_SECRET_KEY: string;
         MINIO_BUCKET: string;
     };
 };

@@ -1,5 +1,7 @@
 # compiled output
 /node_modules
+/media
+/data
 
 .env.*
 !.env.sample

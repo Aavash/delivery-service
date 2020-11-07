@@ -18,7 +18,6 @@ const typeorm_config_1 = __importDefault(require("./config/typeorm/typeorm.confi
 const typeorm_1 = require("@nestjs/typeorm");
 const logger_middleware_1 = require("./common/middlewares/logger.middleware");
 const auth_module_1 = require("./modules/auth/auth.module");
-const minio_client_1 = require("./modules/minio-client");
 const platform_express_1 = require("@nestjs/platform-express");
 let AppModule = class AppModule {
     configure(consumer) {
@@ -35,13 +34,6 @@ AppModule = __decorate([
             delivery_module_1.DeliveryModule,
             customer_module_1.CustomerModule,
             auth_module_1.AuthModule,
-            minio_client_1.NestMinioModule.register({
-                endPoint: 'play.min.io',
-                port: 9000,
-                useSSL: true,
-                accessKey: 'Q3AM3UQ867SPQQA43P2F',
-                secretKey: 'zuf+tfteSlswRu7BJ86wekitnifILbZam1KYY3TG',
-            }),
             platform_express_1.MulterModule.register({
                 dest: '/data',
             })
