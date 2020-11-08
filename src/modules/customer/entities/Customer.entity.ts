@@ -24,6 +24,15 @@ export class Customer extends CustomBaseEntity{
   })
   is_password_set: boolean;
 
+  @Column('varchar', { length: 150, name: 'google_id', nullable: true })
+  google_id: string;
+
+  @Column('varchar', { length: 150, name: 'fb_id', nullable: true })
+  fb_id: string;
+
+  @Column('varchar', { length: 150, name: 'apple_id', nullable: true })
+  apple_id: string;
+
   @Column('varchar', { length: 150, name: 'email', nullable: true })
   email: string;
 

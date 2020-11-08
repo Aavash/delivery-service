@@ -8,4 +8,9 @@ export declare class CustomerController {
         access_token: string;
         expires_in: string;
     }>;
+    linkThirdPartyLogin(dto: OtpBasedRegistrationDto): Promise<{
+        message: string;
+        access_token: string;
+        expires_in: string;
+    }>;
 }

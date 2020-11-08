@@ -2,7 +2,7 @@ import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@n
 import { JwtService } from '@nestjs/jwt';
 import { CustomerRepository } from '../customer.repository';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SetPasswordDto } from '../dtos/setPasswordDto';
+import { SetPasswordDto } from '../dtos/setPassword.dto';
 import { LoginPayloadDto } from '../../../common/dtos/loginPayload.dto';
 import { getUserJwtToken } from '../../../common/jwt/getUserJwtToken.helper';
 

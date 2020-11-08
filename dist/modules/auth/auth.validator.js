@@ -29,7 +29,11 @@ let AuthAPIValidators = class AuthAPIValidators {
             }
         });
         if (pendingRiderRequest) {
-            throw new common_1.HttpException('Rider has a pending profile approval.', common_1.HttpStatus.BAD_REQUEST);
+            throw new common_1.HttpException({
+                approval_status: common_enum_1.ApprovalStatusEnum.PENDING,
+                message: 'Rider has a pending profile approval.',
+                status: common_1.HttpStatus.BAD_REQUEST
+            }, common_1.HttpStatus.BAD_REQUEST);
         }
         return true;
     }

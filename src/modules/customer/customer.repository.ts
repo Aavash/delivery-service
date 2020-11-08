@@ -1,7 +1,7 @@
 import { EntityRepository, Repository } from 'typeorm';
 import { Customer } from './entities/Customer.entity';
 import * as argon from 'argon2';
-import { SetPasswordDto } from './dtos/setPasswordDto';
+import { SetPasswordDto } from './dtos/setPassword.dto';
 import { LoginPayloadDto } from '../../common/dtos/loginPayload.dto';
 
 

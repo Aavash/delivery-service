@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
 import { CustomerRepository } from '../customer.repository';
-import { SetPasswordDto } from '../dtos/setPasswordDto';
+import { SetPasswordDto } from '../dtos/setPassword.dto';
 import { LoginPayloadDto } from '../../../common/dtos/loginPayload.dto';
 export declare class CustomerAuthService {
     private customerRepository;

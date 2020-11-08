@@ -26,7 +26,11 @@ export class AuthAPIValidators{
       });
 
     if (pendingRiderRequest) {
-      throw new HttpException('Rider has a pending profile approval.', HttpStatus.BAD_REQUEST)
+      throw new HttpException({
+          approval_status: ApprovalStatusEnum.PENDING,
+          message: 'Rider has a pending profile approval.',
+          status: HttpStatus.BAD_REQUEST},
+          HttpStatus.BAD_REQUEST)
     }
 
     return true

@@ -5,6 +5,9 @@ export declare class Customer extends CustomBaseEntity {
     full_name: string;
     password: string | null;
     is_password_set: boolean;
+    google_id: string;
+    fb_id: string;
+    apple_id: string;
     email: string;
     gender: GenderEnum;
     mobile_number_ext: string | null;

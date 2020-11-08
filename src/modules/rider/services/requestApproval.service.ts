@@ -132,7 +132,6 @@ export class ProfileApprovalService {
             id: profileRequest.id,
             approval_status: profileCreateDto.approval_status,
             approval_quote: profileCreateDto.approval_quote,
-            // ...profileRequest
           });
 
           return { message: 'Request has been rejected' }

@@ -8,7 +8,7 @@ export class SetPasswordDto {
     @MinLength(8)
     @MaxLength(20)
     @Matches(/((?=.*d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-      { message: 'Password too weak' })
+      { message: 'Password too weak. Must contain an uppercase, letter and special character' })
     @ApiProperty()
     password: string;
 
@@ -17,7 +17,7 @@ export class SetPasswordDto {
     @MinLength(8)
     @MaxLength(20)
     @Matches(/((?=.*d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/,
-      { message: 'Password too weak' })
+      { message: 'Password too weak. Must contain an uppercase, letter and special character' })
     @ApiProperty()
     confirm_password: string;
 

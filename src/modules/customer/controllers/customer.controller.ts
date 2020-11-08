@@ -13,4 +13,9 @@ export class CustomerController {
   async customerRegistration(@Body(ValidationPipe) dto: OtpBasedRegistrationDto) {
     return await this.customerService.customerRegistration(dto)
   }
+
+  @Post('/link-third-party-login/')
+  async linkThirdPartyLogin(@Body(ValidationPipe) dto: OtpBasedRegistrationDto) {
+    return await this.customerService.customerRegistration(dto)
+  }
 }

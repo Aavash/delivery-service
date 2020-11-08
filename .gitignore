@@ -3,9 +3,8 @@
 /media
 /data
 
-.env.*
 !.env.sample
-# env/dev.env
+env/dev.env
 env/prod.env
 .eslintcache
 

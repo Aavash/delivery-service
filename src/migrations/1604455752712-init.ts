@@ -1,7 +1,7 @@
-import {MigrationInterface, QueryRunner} from "typeorm";
+import { MigrationInterface, QueryRunner } from 'typeorm';
 
 export class init1604455752712 implements MigrationInterface {
-    name = 'init1604455752712'
+    name = 'init1604455752712';
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`CREATE TABLE "otp_logs" ("id" SERIAL NOT NULL, "idx" uuid NOT NULL DEFAULT uuid_generate_v4(), "is_obsolete" boolean NOT NULL DEFAULT false, "created_on" TIMESTAMP NOT NULL DEFAULT now(), "modified_on" TIMESTAMP NOT NULL DEFAULT now(), "mobile_number_ext" character varying(150) NOT NULL, "mobile_number" character varying(150) NOT NULL, "token" character varying(10), "device_id" character varying(1000), "ip_address" character varying(100), "type" character varying NOT NULL, "status" character varying NOT NULL, "user_type" character varying NOT NULL, "is_otp_sent" boolean NOT NULL DEFAULT false, CONSTRAINT "PK_e40afc7741f20895f967dc22d85" PRIMARY KEY ("id"))`);

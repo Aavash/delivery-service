@@ -7,7 +7,6 @@ import {
 import { ApiProperty } from '@nestjs/swagger';
 
 
-
 export class OtpBasedRegistrationDto {
   @ApiProperty()
   @IsUUID()

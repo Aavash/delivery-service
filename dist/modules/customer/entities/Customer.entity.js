@@ -34,6 +34,18 @@ __decorate([
     __metadata("design:type", Boolean)
 ], Customer.prototype, "is_password_set", void 0);
 __decorate([
+    typeorm_1.Column('varchar', { length: 150, name: 'google_id', nullable: true }),
+    __metadata("design:type", String)
+], Customer.prototype, "google_id", void 0);
+__decorate([
+    typeorm_1.Column('varchar', { length: 150, name: 'fb_id', nullable: true }),
+    __metadata("design:type", String)
+], Customer.prototype, "fb_id", void 0);
+__decorate([
+    typeorm_1.Column('varchar', { length: 150, name: 'apple_id', nullable: true }),
+    __metadata("design:type", String)
+], Customer.prototype, "apple_id", void 0);
+__decorate([
     typeorm_1.Column('varchar', { length: 150, name: 'email', nullable: true }),
     __metadata("design:type", String)
 ], Customer.prototype, "email", void 0);

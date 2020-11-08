@@ -24,6 +24,9 @@ let CustomerController = class CustomerController {
     async customerRegistration(dto) {
         return await this.customerService.customerRegistration(dto);
     }
+    async linkThirdPartyLogin(dto) {
+        return await this.customerService.customerRegistration(dto);
+    }
 };
 __decorate([
     common_1.Post('/customer-register/'),
@@ -32,6 +35,13 @@ __decorate([
     __metadata("design:paramtypes", [otpBasedRegistrationDto_1.OtpBasedRegistrationDto]),
     __metadata("design:returntype", Promise)
 ], CustomerController.prototype, "customerRegistration", null);
+__decorate([
+    common_1.Post('/link-third-party-login/'),
+    __param(0, common_1.Body(common_1.ValidationPipe)),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [otpBasedRegistrationDto_1.OtpBasedRegistrationDto]),
+    __metadata("design:returntype", Promise)
+], CustomerController.prototype, "linkThirdPartyLogin", null);
 CustomerController = __decorate([
     swagger_1.ApiTags('Customer Profile creation'),
     common_1.Controller('customer'),
