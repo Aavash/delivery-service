@@ -4,7 +4,7 @@
 
 ## Description
 
-Rest APIs for a  object delivery system 
+Backend for an object delivery system 
 
 ## Installation
 
