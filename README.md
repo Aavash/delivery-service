@@ -1,10 +1,10 @@
 
   
- ## <p align="center">Simple delivery micro service written in Nest JS</p>
+ ## <p align="center">Simple delivery system service written in Nest JS</p>
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Rest APIs for a  object delivery system 
 
 ## Installation
 
